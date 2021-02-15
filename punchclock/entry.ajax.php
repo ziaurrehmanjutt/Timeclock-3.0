@@ -13,12 +13,12 @@ require_once 'config.inc.php';
 require_once 'lib.common.php';
 require_once 'lib.timecard.php';
 require_once "$TIMECLOCK_PATH/functions.php";
-//turn_off_magic_quotes();
+turn_off_magic_quotes();
 
 // Connect to db.
-$db = ($GLOBALS["___mysqli_ston"] = mysqli_connect($db_hostname,  $db_username,  $db_password))
+$db = mysqli_connect($db_hostname, $db_username, $db_password)
 or die("Could not connect to the database.");
-mysqli_select_db($GLOBALS["___mysqli_ston"], $db_name);
+mysqli_select_db($db,$db_name);
 
 // Parse arguments.
 $emp = isset($_GET['emp']) ? $_GET['emp'] : null;
@@ -30,10 +30,10 @@ if (!$empfullname)
 if (!$empfullname)
     die(error_msg("Unrecognized employee.")); // no employee specified
 
-$h_empfullname = htmlentities($empfullname);
-$u_empfullname = rawurlencode($empfullname);
+$h_empfullname = htmlentities($empfullname['empfullname']);
+$u_empfullname = rawurlencode($empfullname['empfullname']);
 
-$h_name_header = $show_display_name == 'yes' ? htmlentities(get_employee_name($empfullname)) : $h_empfullname;
+$h_name_header = $show_display_name == 'yes' ? htmlentities(get_employee_name($db,$db_prefix,$empfullname)) : $h_empfullname;
 
 // Authentication and authorization flags.
 $authenticated = isset($_SESSION['authenticated']) ? ($_SESSION['authenticated'] == $empfullname) : false;
@@ -49,19 +49,19 @@ if ($authorized_to_post_time && isset($_POST['inout'])) {
     // Post employee time.
 
     $inout = $_POST['inout'];
-    $q_inout = mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $inout);
+    $q_inout = mysqli_real_escape_string($db,$inout);
     $h_inout = htmlentities($inout);
 
     $notes = isset($_POST['notes']) ? $_POST['notes'] : '';
-    $q_notes = mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $notes);
+    $q_notes = mysqli_real_escape_string($db,$notes);
     $h_notes = htmlentities($notes);
 
-    $q_empfullname = mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $empfullname);
+    $q_empfullname = mysqli_real_escape_string($db,$empfullname);
 
     // Validate and get inout display color.
     $query = "select color from " . $db_prefix . "punchlist where punchitems = '$q_inout'";
-    $punchlist_result = mysqli_query($GLOBALS["___mysqli_ston"], $query);
-    $inout_color = mysqli_result($punchlist_result,  0,  0);
+    $punchlist_result = mysqli_query($db,$query);
+    $inout_color = mysql_result($punchlist_result, 0, 0);
     if (!$inout_color) {
         #print error_msg("In/Out Status is not in the database.");
         trigger_error('In/Out Status is not in the database.', E_USER_WARNING);
@@ -83,11 +83,11 @@ set tstamp = '$tz_stamp'
 where empfullname = '$q_empfullname'
 End_Of_SQL;
 
-    if (mysqli_query($GLOBALS["___mysqli_ston"], $insert_query)) {
-        mysqli_query($GLOBALS["___mysqli_ston"], $update_query)
-        or trigger_error('punchclock: cannot update tstamp in employee record. ' . mysqli_error($GLOBALS["___mysqli_ston"]), E_USER_WARNING);
+    if (mysqli_query($db,$insert_query)) {
+        mysqli_query($db,$update_query)
+        or trigger_error('punchclock: cannot update tstamp in employee record. ' . mysqli_error(), E_USER_WARNING);
     } else {
-        trigger_error('punchclock: cannot insert timestamp into info record. ' . mysqli_error($GLOBALS["___mysqli_ston"]), E_USER_WARNING);
+        trigger_error('punchclock: cannot insert timestamp into info record. ' . mysqli_error(), E_USER_WARNING);
     }
 
     // Update display line on punchclock list and close form.
@@ -132,7 +132,7 @@ if ($use_passwd == 'yes') {
     if ((!$authenticated || !$authorized_to_enter_time) && $password) {
 
         // Validate password
-        if (is_valid_password($empfullname, $password)) {
+        if (is_valid_password($db,$db_prefix,$empfullname, $password)) {
             $_SESSION['authenticated'] = $empfullname;
             $_SESSION['authorized_to_enter_time'] = $empfullname;
             $_SESSION['authorized_to_post_time'] = $empfullname;
@@ -198,7 +198,7 @@ if (isset($_SESSION['authorized_to_enter_time']))
 if ($punchclock_display_timecard == 'yes') {
 
     // Summarize employee hours for the current week.
-    list ($today_hours, $week_hours, $overtime_hours) = current_week_hours($empfullname);
+    list ($today_hours, $week_hours, $overtime_hours) = current_week_hours($db,$db_prefix,$empfullname);
     if ($timecard_display_hours_minutes == 'yes') {
         $today_hours = hrs_min($today_hours) . " hrs:min";
         $week_hours = hrs_min($week_hours) . " hrs:min";
@@ -258,7 +258,7 @@ End_Of_HTML;
 
                     // query to produce buttons for punchlist items //
                     $query = "select punchitems,color,in_or_out from " . $db_prefix . "punchlist order by in_or_out desc, color, punchitems";
-                    $punchlist_result = mysqli_query($GLOBALS["___mysqli_ston"], $query);
+                    $punchlist_result = mysqli_query($db,$query);
                     while ($row = mysqli_fetch_array($punchlist_result)) {
                         $punchclass = $row['in_or_out'] ? 'punch-in' : 'punch-out';
                         ## Note: nyroModel plays with submit buttons so the following does not work.
@@ -267,7 +267,7 @@ End_Of_HTML;
                         ##echo "<input type=\"submit\" name=\"inout\" value=\"{$row['punchitems']}\" class=\"$punchclass\" style=\"color:{$row['color']}\" />\n";
                         echo "<input type=\"submit\" value=\"{$row['punchitems']}\" class=\"$punchclass\" style=\"color:{$row['color']}\" onclick=\"this.form.inout.value=this.value;\" />\n";
                     }
-                    ((mysqli_free_result($punchlist_result) || (is_object($punchlist_result) && (get_class($punchlist_result) == "mysqli_result"))) ? true : false);
+                    mysqli_free_result($punchlist_result);
                     ?>
                 </td>
             </tr>

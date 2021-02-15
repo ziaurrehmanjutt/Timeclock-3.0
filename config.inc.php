@@ -65,10 +65,10 @@ $restrict_ips = "no";
 $allowed_networks = array();
 
 
-/* Choose "yes" if you want to disable the Edit System Settings page within PHP 
-   Timeclock. This page allows you to make *most* of your changes to the 
-   config.inc.php file through the PHP Timeclock interface instead of editing 
-   the config.inc.php file by hand. Many will view this as a possible security risk  
+/* Choose "yes" if you want to disable the Edit System Settings page within PHP
+   Timeclock. This page allows you to make *most* of your changes to the
+   config.inc.php file through the PHP Timeclock interface instead of editing
+   the config.inc.php file by hand. Many will view this as a possible security risk
    and might would rather disable this functionality. Default is "no". */
 
 $disable_sysedit = "no";
@@ -81,28 +81,10 @@ $disable_sysedit = "no";
 $use_passwd = "yes";
 
 
-/* If you only want certain users to have the ability to view and run the reports, 
+/* If you only want certain users to have the ability to view and run the reports,
    change $use_reports_password to "yes". Default is "no"; */
 
 $use_reports_password = "no";
-
-
-/* Choose whether to allow barcode clock-in/out. Options are "yes" or "no".
-   If "yes" is chosen, the barcode entry will be visible and focused by
-   default on the main timeclock screen. Scanning the employee barcode will
-   immediately change their status.
-*/
-
-$barcode_clockin = "yes";
-
-
-/* Choose whether to allow selecting employee name from dropdown to
-   clock-in/out. Options are "yes" or "no". If "yes" is chosen, the a
-   dropdown (and password entry if enabled) will be displayed on the
-   timeclock screen and employees will be able to change their status.
-*/
-
-$manual_clockin = "yes";
 
 
 /* Enable the option to log the ip addresses of the connecting computers when users
@@ -121,16 +103,16 @@ $email = "none";
 /* --- OPTIONAL CHANGES --- */
 
 
-/* Choose the way dates are displayed. DO NOT EDIT THESE DATE VARIABLES MANUALLY UNLESS YOU 
+/* Choose the way dates are displayed. DO NOT EDIT THESE DATE VARIABLES MANUALLY UNLESS YOU
    KNOW WHAT YOU ARE DOING. Instead, change these date variables via the Edit System Settings
-   page in the Administration section of PHP Timeclock (sysedit.php). $datefmt default is 
-   "n/j/y", $js_datefmt default is "M/d/yy", $tmp_datefmt default is "m/d/yy", and 
-   $calendar_style default is "amer". You will need to choose date formats with matching 
-   numbers, ie: if format number 10 is used for $datefmt, then format number 10 will need to 
-   be used for $js_format and $tmp_format as well. "euro" will need to be chosen for date 
-   format numbers 1-6, and "amer" will need to be chosen for date format numbers 7-12. 
-   Again, if you are confused, i urge you to change these settings via the Edit System 
-   Settings page in the Administration Section. Choosing mismatched options will lead to 
+   page in the Administration section of PHP Timeclock (sysedit.php). $datefmt default is
+   "n/j/y", $js_datefmt default is "M/d/yy", $tmp_datefmt default is "m/d/yy", and
+   $calendar_style default is "amer". You will need to choose date formats with matching
+   numbers, ie: if format number 10 is used for $datefmt, then format number 10 will need to
+   be used for $js_format and $tmp_format as well. "euro" will need to be chosen for date
+   format numbers 1-6, and "amer" will need to be chosen for date format numbers 7-12.
+   Again, if you are confused, i urge you to change these settings via the Edit System
+   Settings page in the Administration Section. Choosing mismatched options will lead to
    much confusion and plenty of headaches later.
 
    Possibilities for these variables are:
@@ -158,17 +140,6 @@ $calendar_style = "amer";
 
 
 /* Choose the way times are displayed. Default is "g:i a".
-
-   g	12-hour format of an hour without leading zeros	1 through 12
-   G	24-hour format of an hour without leading zeros	0 through 23
-   h	12-hour format of an hour with leading zeros	01 through 12
-   H	24-hour format of an hour with leading zeros	00 through 23
-   
-   i	Minutes with leading zeros
-   
-   a	Lowercase Ante meridiem and Post meridiem	am or pm
-   A	Uppercase Ante meridiem and Post meridiem
-   
 
    Possibilities for this variable are:
 
@@ -206,13 +177,13 @@ $display_office = "all";
 $display_group = "all";
 
 
-/* Display a column on the main page that shows the office each person is affiliated with. 
+/* Display a column on the main page that shows the office each person is affiliated with.
    Default is "no". */
 
 $display_office_name = "no";
 
 
-/* Display a column on the main page that shows the group each person is affiliated with. 
+/* Display a column on the main page that shows the group each person is affiliated with.
    Default is "no". */
 
 $display_group_name = "no";
@@ -231,7 +202,7 @@ $logo = "images/logos/phptimeclock.png";
 $refresh = "300";
 
 
-/* This creates a clickable date in the top right of each page. By Default, it links to 
+/* This creates a clickable date in the top right of each page. By Default, it links to
    "This Day in History" on the historychannel.com website. Set it to "none" to ignore this option. */
 
 $date_link = "http://www.historychannel.com/tdih";
@@ -251,7 +222,7 @@ $color2 = "#FBFBFB";
 $links = "none";
 
 
-/* Insert/change/delete below the display names for the links you inserted above. 
+/* Insert/change/delete below the display names for the links you inserted above.
    If $links is set to "none", this option is ignored. */
 
 $display_links = "none";
@@ -269,7 +240,7 @@ $display_links = "none";
 $paginate = "yes";
 
 
-/* Choose whether to show the punch-in/out details for each punch for each user on the 
+/* Choose whether to show the punch-in/out details for each punch for each user on the
    Hours Worked report or not. Default is "yes". */
 
 $show_details = "yes";
@@ -301,11 +272,11 @@ $report_start_time = "00:00";
 $report_end_time = "23:59";
 
 
-/* Setting this variable to "yes" will display a single dropdown box containing usernames 
-   to choose from when running the reports. Setting this variable to "no" will instead 
-   display a triple dropdown box containing offices, groups, and usernames to choose from 
-   when running the reports. A single dropdown box works well if there are just a few 
-   usernames in the system, and a triple dropdown works well if multiple offices and/or 
+/* Setting this variable to "yes" will display a single dropdown box containing usernames
+   to choose from when running the reports. Setting this variable to "no" will instead
+   display a triple dropdown box containing offices, groups, and usernames to choose from
+   when running the reports. A single dropdown box works well if there are just a few
+   usernames in the system, and a triple dropdown works well if multiple offices and/or
    groups are in the system. Default is "no". */
 
 $username_dropdown_only = "no";
@@ -317,8 +288,8 @@ $username_dropdown_only = "no";
 $user_or_display = "user";
 
 
-/* Choose whether to include in the reports the ip addresses of the systems that connect to 
-   sign-in/out into PHP Timeclock or not. This option is useful for auditing purposes. The 
+/* Choose whether to include in the reports the ip addresses of the systems that connect to
+   sign-in/out into PHP Timeclock or not. This option is useful for auditing purposes. The
    ip_logging option must be set to "yes" in order for this option to work as expected.
    Default is "yes". */
 
@@ -363,41 +334,6 @@ $display_weather = "yes";
 $weather_units = "c";
 
 
-/* set this list to your local weather station location
-   the entry format (all fields are required) is  
-   
-   'Metar(ICAO) | Name of station | dist-mi | dist-km | direction |'
-   
-   Note that the trailing | is required. 
-   You may have two in the array, which will show weather conditions 
-   for two different stations, in which case you enter  
-   array('a|b|c|d|e|','F|G|H|I|J|')   
-   You can find a list of valid ICAO codes at:
-   https://pilotweb.nas.faa.gov/qryhtml/icao/            */
-   
-$WxList = array();
-$WxList = array('KTOP|Topeka, Kansas|4|7|NE|');
-
-/*  NOTE: this *MUST* be set correctly to
-    translate UTC times to your LOCAL time for the weather displays.
-    The list of valid timezone names can be found at 
-    
-    http://us.php.net/manual/en/timezones.php 
-    
-    pick the one that is closest to your location 
-    
-    $WxTimeZone = 'America/Los_Angeles';
-    or
-    $WxTimeZone = 'Europe/Brussels';
-    
-    */
-
-$WxTimeZone = 'America/Chicago'; 
-
-/*  *************************************************************************
-    the next two config values are depricated, don't bother to update them. 
-    *************************************************************************  */
-    
 /* ICAO (International Civil Aviation Organization) for your local airport. This is the
    unique four letter international ID for the airport. METAR reports are created at
    roughly 4500 airports from around the world, so you probably live near one of them.
@@ -407,20 +343,21 @@ $WxTimeZone = 'America/Chicago';
    $display_weather is set to "no", this option is ignored. If $display_weather is set to
    "yes", you MUST provide an ICAO here. */
 
-$metar = "KTOP";
+$metar = "CYYT";
+
 
 /* This is the city and country (or can be city and state) of the airport for
    the ICAO used above. The max length for this field is 100 characters.
    If $display_weather is set to "no", this option is ignored. */
 
-$city = "Topeka, KS";
+$city = "St. Johns, NL, Canada";
 
 
 /* --- APP NAME, VERSION NUMBER, ETC. --- */
 
 
 $app_name = "PHP Timeclock";
-$app_version = "2.0.0";
+$app_version = "1.04";
 
 /* Sets the title in the header. This is what the page will be named by default when you
    make a "favorite" or "bookmark" in your browser. Change as you see fit. */

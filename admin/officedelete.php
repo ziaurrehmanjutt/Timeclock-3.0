@@ -92,7 +92,7 @@ if ($request == 'GET') {
     echo "            <br />\n";
 
     $query = "select * from " . $db_prefix . "offices where officename = '" . $get_office . "'";
-    $result = mysqli_query($GLOBALS["___mysqli_ston"], $query);
+    $result = mysqli_query($db,$query);
 
     while ($row = mysqli_fetch_array($result)) {
 
@@ -106,11 +106,11 @@ if ($request == 'GET') {
     }
 
     $query2 = "select office from " . $db_prefix . "employees where office = '" . $get_office . "'";
-    $result2 = mysqli_query($GLOBALS["___mysqli_ston"], $query2);
+    $result2 = mysqli_query($db,$query2);
     @$user_cnt = mysqli_num_rows($result2);
 
     $query3 = "select * from " . $db_prefix . "groups where officeid = '" . $officeid . "'";
-    $result3 = mysqli_query($GLOBALS["___mysqli_ston"], $query3);
+    $result3 = mysqli_query($db,$query3);
     @$group_cnt = mysqli_num_rows($result3);
 
     if ($user_cnt > 0) {
@@ -208,12 +208,12 @@ if ($request == 'GET') {
 
     if ((!empty($post_officename)) || (!empty($post_officeid))) {
         $query = "select * from " . $db_prefix . "offices where officename = '" . $post_officename . "' and officeid = '" . $post_officeid . "'";
-        $result = mysqli_query($GLOBALS["___mysqli_ston"], $query);
+        $result = mysqli_query($db,$query);
         while ($row = mysqli_fetch_array($result)) {
             $officename = "" . $row['officename'] . "";
             $officeid = "" . $row['officeid'] . "";
         }
-        ((mysqli_free_result($result) || (is_object($result) && (get_class($result) == "mysqli_result"))) ? true : false);
+        mysqli_free_result($result);
     }
 
     if ((!isset($officename)) || (!isset($officeid))) {
@@ -223,12 +223,12 @@ if ($request == 'GET') {
 
     if ((!empty($office_name)) && ($office_name != 'no_office_users')) {
         $query = "select * from " . $db_prefix . "offices where officename = '" . $office_name . "'";
-        $result = mysqli_query($GLOBALS["___mysqli_ston"], $query);
+        $result = mysqli_query($db,$query);
         while ($row = mysqli_fetch_array($result)) {
             $tmp_officename = "" . $row['officename'] . "";
             $tmp_officeid = "" . $row['officeid'] . "";
         }
-        ((mysqli_free_result($result) || (is_object($result) && (get_class($result) == "mysqli_result"))) ? true : false);
+        mysqli_free_result($result);
         if ((!isset($tmp_officename)) || (!isset($tmp_officeid))) {
             echo "Office name is not defined for this group.\n";
             exit;
@@ -237,12 +237,12 @@ if ($request == 'GET') {
 
     if ((!empty($group_name)) && ($group_name != 'no_group_users')) {
         $query = "select * from " . $db_prefix . "groups where groupname = '" . $group_name . "'";
-        $result = mysqli_query($GLOBALS["___mysqli_ston"], $query);
+        $result = mysqli_query($db,$query);
         while ($row = mysqli_fetch_array($result)) {
             $tmp_groupname = "" . $row['groupname'] . "";
             $tmp_groupid = "" . $row['groupid'] . "";
         }
-        ((mysqli_free_result($result) || (is_object($result) && (get_class($result) == "mysqli_result"))) ? true : false);
+        mysqli_free_result($result);
         if ((!isset($tmp_groupname)) || (!isset($tmp_groupid))) {
             echo "Office name is not defined for this group.\n";
             exit;
@@ -250,11 +250,11 @@ if ($request == 'GET') {
     }
 
     $query2 = "select office from " . $db_prefix . "employees where office = '" . $post_officename . "'";
-    $result2 = mysqli_query($GLOBALS["___mysqli_ston"], $query2);
+    $result2 = mysqli_query($db,$query2);
     @$tmp_user_cnt = mysqli_num_rows($result2);
 
     $query3 = "select * from " . $db_prefix . "groups where officeid = '" . $post_officeid . "'";
-    $result3 = mysqli_query($GLOBALS["___mysqli_ston"], $query3);
+    $result3 = mysqli_query($db,$query3);
     @$tmp_group_cnt = mysqli_num_rows($result3);
 
     if ($user_cnt != $tmp_user_cnt) {
@@ -401,14 +401,14 @@ if ($request == 'GET') {
 
         if ($user_cnt > 0) {
             $query4 = "update " . $db_prefix . "employees set office = ('" . $office_name . "'), groups = ('" . $group_name . "') where office = ('" . $post_officename . "')";
-            $result4 = mysqli_query($GLOBALS["___mysqli_ston"], $query4);
+            $result4 = mysqli_query($db,$query4);
         }
 
         $query5 = "delete from " . $db_prefix . "offices where officeid = '" . $post_officeid . "'";
-        $result5 = mysqli_query($GLOBALS["___mysqli_ston"], $query5);
+        $result5 = mysqli_query($db,$query5);
 
         $query6 = "delete from " . $db_prefix . "groups where officeid = '" . $post_officeid . "'";
-        $result6 = mysqli_query($GLOBALS["___mysqli_ston"], $query6);
+        $result6 = mysqli_query($db,$query6);
 
         echo "              <tr><td class=table_rows height=25 width=20% style='padding-left:32px;' nowrap>Office Name:</td><td align=left class=table_rows
                       width=80% style='padding-left:20px;'>$post_officename</td></tr>\n";

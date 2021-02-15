@@ -89,7 +89,7 @@ while ($row = mysqli_fetch_array($result)) {
     $date = date($datefmt, $display_stamp);
 
     if ($show_display_name == "yes") {
-        echo stripslashes("              <tr class=display_row><td nowrap width=20% bgcolor='$row_color' style='padding-left:10px; 
+        echo stripslashes("              <tr class=display_row><td nowrap width=20% bgcolor='$row_color' style='padding-left:10px;
                           padding-right:10px;'>" . $row["displayname"] . "</td>\n");
     } elseif ($show_display_name == "no") {
         echo stripslashes("              <tr class=display_row><td nowrap width=20% bgcolor='$row_color' style='padding-left:10px;
@@ -130,5 +130,5 @@ if (!isset($_GET['printer_friendly'])) {
     echo "          </td></tr>\n";
 }
 
-((mysqli_free_result($result) || (is_object($result) && (get_class($result) == "mysqli_result"))) ? true : false);
+mysqli_free_result($result);
 ?>

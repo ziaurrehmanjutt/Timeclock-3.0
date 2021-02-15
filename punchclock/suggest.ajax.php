@@ -17,25 +17,25 @@ if (!$search)
     exit;
 
 // Connect to db.
-$db = ($GLOBALS["___mysqli_ston"] = mysqli_connect($db_hostname,  $db_username,  $db_password))
+$db = mysqli_connect($db_hostname, $db_username, $db_password)
 or die("Could not connect to the database.");
-mysqli_select_db($GLOBALS["___mysqli_ston"], $db_name);
+mysqli_select_db($db,$db_name);
 
 // Search for employee names beginning with query
-$q_search = mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $search);
+$q_search = mysqli_real_escape_string($db,$search);
 $query = <<<End_Of_SQL
 select displayname
 from {$db_prefix}employees
 where displayname like '$q_search%'
 End_Of_SQL;
 
-$result = mysqli_query($GLOBALS["___mysqli_ston"], $query);
+$result = mysqli_query($db,$query);
 if (!$result) {
-    trigger_error('suggest.ajax.php: error: ' . mysqli_error($GLOBALS["___mysqli_ston"]), E_USER_WARNING);
+    trigger_error('suggest.ajax.php: error: ' . mysqli_error(), E_USER_WARNING);
     die();
 }
 
-while ($row = mysqli_fetch_assoc($result)) {
+while ($row = mysql_fetch_assoc($result)) {
     print $row['displayname'] . "\n";
 }
 ?>

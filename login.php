@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-echo crypt('123456', 'xy');
 include 'config.inc.php';
 include 'header.php';
 include 'topmain.php';
@@ -15,7 +14,7 @@ if (isset($_POST['login_userid']) && (isset($_POST['login_password']))) {
 
     $query = "select empfullname, employee_passwd, admin, time_admin from " . $db_prefix . "employees
               where empfullname = '" . $login_userid . "'";
-    $result = mysqli_query($GLOBALS["___mysqli_ston"], $query);
+    $result = mysqli_query($db,$query);
 
     while ($row = mysqli_fetch_array($result)) {
 

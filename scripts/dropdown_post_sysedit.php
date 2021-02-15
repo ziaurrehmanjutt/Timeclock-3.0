@@ -12,7 +12,7 @@
         @$office_name = $_POST['office_name'];;
 
         $query = "select * from ".$db_prefix."offices order by officename asc";
-        $result = mysqli_query($GLOBALS["___mysqli_ston"], $query);
+        $result = mysqli_query($db,$query);
 
         $cnt=1;
         while ($row=mysqli_fetch_array($result)) {
@@ -24,7 +24,7 @@
           }
           $cnt++;
         }
-        ((mysqli_free_result($result) || (is_object($result) && (get_class($result) == "mysqli_result"))) ? true : false);
+        mysqli_free_result($result);
         ?>
     }
 
@@ -41,7 +41,7 @@
         <?php
 
         $query = "select * from ".$db_prefix."offices order by officename asc";
-        $result = mysqli_query($GLOBALS["___mysqli_ston"], $query);
+        $result = mysqli_query($db,$query);
 
         while ($row=mysqli_fetch_array($result)) {
         $office_row = addslashes("".$row['officename']."");
@@ -52,7 +52,7 @@
             $query2 = "select * from ".$db_prefix."offices, ".$db_prefix."groups where ".$db_prefix."groups.officeid = ".$db_prefix."offices.officeid
                        and ".$db_prefix."offices.officename = '".$office_row."'
                        order by ".$db_prefix."groups.groupname asc";
-            $result2 = mysqli_query($GLOBALS["___mysqli_ston"], $query2);
+            $result2 = mysqli_query($db,$query2);
             echo "groups_select.options[0] = new Option(\"all\");\n";
             echo "groups_select.options[0].value = 'all';\n";
             $cnt = 1;
@@ -68,8 +68,8 @@
         }
         <?php
         }
-        ((mysqli_free_result($result) || (is_object($result) && (get_class($result) == "mysqli_result"))) ? true : false);
-        ((mysqli_free_result($result2) || (is_object($result2) && (get_class($result2) == "mysqli_result"))) ? true : false);
+        mysqli_free_result($result);
+        mysqli_free_result($result2);
         ?>
 
         if (groups_select.options[groups_select.selectedIndex].value != 'all') {
@@ -83,7 +83,7 @@
             echo "groups_select.options[0].value = 'all';\n";
 
             $query3 = "select * from ".$db_prefix."groups order by groupname asc";
-            $result3 = mysqli_query($GLOBALS["___mysqli_ston"], $query3);
+            $result3 = mysqli_query($db,$query3);
 
             $cnt=1;
             while ($row3=mysqli_fetch_array($result3)) {
@@ -95,7 +95,7 @@
               }
               $cnt++;
             }
-            ((mysqli_free_result($result3) || (is_object($result3) && (get_class($result3) == "mysqli_result"))) ? true : false);
+            mysqli_free_result($result3);
             ?>
         }
     }

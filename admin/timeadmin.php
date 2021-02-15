@@ -86,7 +86,7 @@ $row_count = 0;
 
 $query = "select empfullname, displayname, email, groups, office, admin, reports, disabled from " . $db_prefix . "employees
           order by empfullname";
-$result = mysqli_query($GLOBALS["___mysqli_ston"], $query);
+$result = mysqli_query($db,$query);
 
 while ($row = mysqli_fetch_array($result)) {
 

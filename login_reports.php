@@ -14,7 +14,7 @@ if (isset($_POST['login_userid']) && (isset($_POST['login_password']))) {
 
     $query = "select empfullname, employee_passwd, reports from " . $db_prefix . "employees
               where empfullname = '" . $login_userid . "'";
-    $result = mysqli_query($GLOBALS["___mysqli_ston"], $query);
+    $result = mysqli_query($db,$query);
 
     while ($row = mysqli_fetch_array($result)) {
 
