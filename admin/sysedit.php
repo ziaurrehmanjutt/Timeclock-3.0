@@ -263,18 +263,25 @@ if ($request == 'GET') {
             echo "            <br />\n";
         }
     } elseif (!isset($evil)) {
+        // var_dump($links);die;
+        if($links != 'none')
         for ($x = 0; $x < count($links); $x++) {
             $links[$x] = addslashes($links[$x]);
             if (strlen($links[$x]) > 100) {
                 $evil_link = "1";
             }
         }
+        if($display_links != 'none')
         for ($x = 0; $x < count($display_links); $x++) {
             $display_links[$x] = addslashes($display_links[$x]);
             if (strlen($display_links[$x]) > 100) {
                 $evil_display_link = "1";
             }
         }
+
+        // var_dump($allowed_networks);die;
+
+
         for ($x = 0; $x < count($allowed_networks); $x++) {
             if (strlen($allowed_networks[$x]) > 21) {
                 $evil_allowed_network = "1";
@@ -977,6 +984,7 @@ if ($request == 'GET') {
         $query = "select DISTINCT(groupname) from groups order by groupname asc";
         $result = mysqli_query($db,$query);
 
+        if($result)
         while ($row = mysqli_fetch_array($result)) {
             if ("" . $row['groupname'] . "" == $display_group) {
                 echo "                    <option selected>" . $row['groupname'] . "</option>\n";
@@ -984,6 +992,7 @@ if ($request == 'GET') {
                 echo "                    <option>" . $row['groupname'] . "</option>\n";
             }
         }
+
         echo "                      </select></td>\n";
     } else {
         echo "                     <td bgcolor='$row_color' class=table_rows width=10% align=left valign=top>
@@ -3205,4 +3214,3 @@ $dbversion = "' . $post_dbversion . '";
         exit;
     }
 }
-?>

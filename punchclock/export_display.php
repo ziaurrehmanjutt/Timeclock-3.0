@@ -7,8 +7,13 @@ if (!isset($_SESSION['application'])) {
     header('Location:export.php');
     exit;
 }
-
+require_once 'config.inc.php';
 require_once 'class.Timecard.php';
+
+// Connect to db.
+$db = mysqli_connect($db_hostname, $db_username, $db_password)
+or die("Could not connect to the database.");
+mysqli_select_db($db,$db_name);
 
 // Construct query parameters
 $begin_local_timestamp = make_timestamp($from_date); // begins at midnight
@@ -49,7 +54,7 @@ while ($row = mysqli_fetch_array($result)) {
 
         // Walk each timecard and insert records into temporary database table t_computed_hours.
         $tc = new Timecard($db,$db_prefix,$empfullname, $begin, $end);
-        list($timecard_row_count, $total_hours, $overtime_hours) = $tc->walk($db,$db_prefix,null, record_hours, null);
+        list($timecard_row_count, $total_hours, $overtime_hours) = $tc->walk($db,$db_prefix,null, 'record_hours', null);
 
         $begin = $end;
     }
@@ -60,7 +65,7 @@ $cols = '';
 if ($c_office)
     $cols .= ",office";
 if ($c_group)
-    $cols .= ",groups";
+    $cols .= ",`groups`";
 if ($c_employee)
     $cols .= ",empfullname";
 if ($c_name)
@@ -183,14 +188,14 @@ End_Of_HTML;
     $row_class = ($row_count % 2) ? 'odd' : 'even';
 
     $hours = sprintf("%01.02f", $row['sum_hours']);
-    $reg_ot = $row['reg_ot'] == 'O' ? 'OT' : 'Reg';
-    $h_inout = htmlentities($row['inout']);
-    $h_color = $row['color'] ? htmlentities($row['color']) : 'inherit';
-    $date = $row['hours_date'];
-    $h_empfullname = htmlentities($row['empfullname']);
-    $h_name = htmlentities($row['displayname']);
-    $h_groups = htmlentities($row['groups']);
-    $h_office = htmlentities($row['office']);
+    $reg_ot = @$row['reg_ot'] == 'O' ? 'OT' : 'Reg';
+    $h_inout = htmlentities(@$row['inout']);
+    $h_color = @$row['color'] ? htmlentities($row['color']) : 'inherit';
+    $date = @$row['hours_date'];
+    $h_empfullname = htmlentities(@$row['empfullname']);
+    $h_name = htmlentities(@$row['displayname']);
+    $h_groups = htmlentities(@$row['groups']);
+    $h_office = htmlentities(@$row['office']);
 
     print <<<End_Of_HTML
 
@@ -240,6 +245,7 @@ mysqli_free_result($result);
 
 ////////////////////////////////////////
 function setup_record_hours() {
+    global $db;
     // Create temp database table to hold records of computed timecard hours.
     $sql = <<<End_Of_SQL
 create temporary table t_computed_hours (
@@ -260,6 +266,7 @@ End_Of_SQL;
 }
 
 function record_hours($tc) {
+    global $db;
     // Insert records of computed hours into temp database table.
     // Helper function for Timecard::walk().
 
@@ -297,11 +304,12 @@ function record_hours($tc) {
             #$date        = date('Y-m-d H:i',$start_time); ## debug
             $date = date('Y-m-d', $start_time);
             $sql = <<<End_Of_SQL
-insert into t_computed_hours (hours,reg_ot,`inout`,color,hours_date,empfullname,displayname,groups,office)
+insert into t_computed_hours (hours,reg_ot,`inout`,color,hours_date,empfullname,displayname,`groups`,office)
 values ($hours,'$reg_ot','$q_inout','$q_color','$date','$q_employee','$q_name','$q_group','$q_office')
 End_Of_SQL;
+
             mysqli_query($db,$sql)
-            or trigger_error("export_display: Cannot insert regular hours into temp table. " . mysqli_error(), E_USER_WARNING);
+            or trigger_error("export_display: Cannot insert regular hours into temp table. " . mysqli_error($db), E_USER_WARNING);
         }
 
         if (round($overtime, 3) > 0) {
@@ -315,7 +323,7 @@ End_Of_SQL;
             #$date        = date('Y-m-d H:i',$start_time); ## debug
             $date = date('Y-m-d', $start_time);
             $sql = <<<End_Of_SQL
-insert into t_computed_hours (hours,reg_ot,`inout`,color,hours_date,empfullname,displayname,groups,office)
+insert into t_computed_hours (hours,reg_ot,`inout`,color,hours_date,empfullname,displayname,`groups`,office)
 values ($overtime,'$reg_ot','$q_inout','$q_color','$date','$q_employee','$q_name','$q_group','$q_office')
 End_Of_SQL;
             mysqli_query($db,$sql)

@@ -62,7 +62,7 @@ $restrict_ips = "no";
    example --> $allowed_networks = array("10.0.0.4","192.168.1.[11-20]","192.168.4.0/24","192.0.0.0/8");
 */
 
-$allowed_networks = array();
+$allowed_networks = array("127.0.0.1");
 
 
 /* Choose "yes" if you want to disable the Edit System Settings page within PHP
@@ -84,7 +84,7 @@ $use_passwd = "yes";
 /* If you only want certain users to have the ability to view and run the reports,
    change $use_reports_password to "yes". Default is "no"; */
 
-$use_reports_password = "no";
+$use_reports_password = "yes";
 
 
 /* Enable the option to log the ip addresses of the connecting computers when users
@@ -133,9 +133,9 @@ $email = "none";
                11) n/j/y                      11) M/d/yy                         11) m/d/yy
                12) n-j-y                      12) M-d-yy                         12) m-d-yy */
 
-$datefmt = "n/j/Y";
-$js_datefmt = "M/d/yyyy";
-$tmp_datefmt = "m/d/yyyy";
+$datefmt = "n-j-y";
+$js_datefmt = "M-d-yy";
+$tmp_datefmt = "m-d-yy";
 $calendar_style = "amer";
 
 
@@ -150,7 +150,7 @@ $calendar_style = "amer";
                 5) g:iA
                 6) g:ia    */
 
-$timefmt = "g:ia";
+$timefmt = "H:i";
 
 
 /* Display only activity for the the current day instead of the last entry from each user.
@@ -180,13 +180,13 @@ $display_group = "all";
 /* Display a column on the main page that shows the office each person is affiliated with.
    Default is "no". */
 
-$display_office_name = "no";
+$display_office_name = "yes";
 
 
 /* Display a column on the main page that shows the group each person is affiliated with.
    Default is "no". */
 
-$display_group_name = "no";
+$display_group_name = "yes";
 
 
 /* A logo or graphic, this is displayed in the top left of each page.
@@ -243,7 +243,7 @@ $paginate = "yes";
 /* Choose whether to show the punch-in/out details for each punch for each user on the
    Hours Worked report or not. Default is "yes". */
 
-$show_details = "yes";
+$show_details = "no";
 
 
 /* Choose how to round the time worked within the Hours Worked report for each user. This
@@ -259,7 +259,7 @@ $show_details = "yes";
                    4) Round to the nearest 20 minutes.
                    5) Round to the nearest 30 minutes.                                     */
 
-$round_time = "0";
+$round_time = "2";
 
 
 /* The two variables below, $report_start_time and $report_end_time, are designed to work with
@@ -299,7 +299,7 @@ $display_ip = "yes";
 /* Reports can be exported to a comma delimited file (.csv). Setting this to "yes" will
    export the reports to .csv files. Default is "no" */
 
-$export_csv = "no";
+$export_csv = "yes";
 
 
 /* --- TIMEZONE INFO --- */
@@ -311,7 +311,7 @@ $export_csv = "no";
    info is pulled from the web browser of the user via javascript and stored in a cookie on their
    system. The default setting is "no". */
 
-$use_client_tz = "no";
+$use_client_tz = "yes";
 
 
 /* To display the punch-in/out times in the timezone of the web server, leave this option set
@@ -331,7 +331,7 @@ $display_weather = "yes";
 
 /* Display weather in US or metric measurements. Options are "f" or "c". Default is "c" */
 
-$weather_units = "c";
+$weather_units = "f";
 
 
 /* ICAO (International Civil Aviation Organization) for your local airport. This is the
@@ -357,7 +357,7 @@ $city = "St. Johns, NL, Canada";
 
 
 $app_name = "PHP Timeclock";
-$app_version = "1.04";
+$app_version = "1.05";
 
 /* Sets the title in the header. This is what the page will be named by default when you
    make a "favorite" or "bookmark" in your browser. Change as you see fit. */
@@ -368,5 +368,5 @@ $title = "$app_name $app_version";
 /* --- DO NOT CHANGE ANYTHING BELOW THIS LINE!!! --- */
 
 
-$dbversion = "1.4";
+$dbversion = "1.5";
 ?>

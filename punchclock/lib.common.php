@@ -242,7 +242,7 @@ function day_timestamp($local_timestamp = null) {
 function make_timestamp($date_str) {
     // Make local timestamp from date string of mm/dd/yyyy or dd/mm/yyyy.
     global $calendar_style;
-    $arr = preg_explode('/\W/', $date_str);
+    $arr = preg_split('/\W/', $date_str);
     $ts = $calendar_style == "euro" ? mktime(0, 0, 0, $arr[1], $arr[0], $arr[2]) : mktime(0, 0, 0, $arr[0], $arr[1], $arr[2]);
 
     return $ts;

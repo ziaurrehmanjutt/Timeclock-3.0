@@ -4,7 +4,7 @@ include 'functions.php';
 
 ob_start();
 echo "<html>\n";
-
+error_reporting(E_ALL);
 // grab the connecting ip address. //
 
 $connecting_ip = get_ipaddress();

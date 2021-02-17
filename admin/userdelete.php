@@ -97,7 +97,7 @@ if ($request == 'GET') {
 
     $query = "select * from " . $db_prefix . "employees where empfullname = '" . $get_user . "' order by empfullname";
     $result = mysqli_query($db,$query);
-
+    if($result)
     while ($row = mysqli_fetch_array($result)) {
 
         $username = stripslashes("" . $row['empfullname'] . "");
@@ -210,11 +210,12 @@ if ($request == 'GET') {
     if (!empty($post_username)) {
         $query = "select * from " . $db_prefix . "employees where empfullname = '" . $post_username . "'";
         $result = mysqli_query($db,$query);
+        if($result)
         while ($row = mysqli_fetch_array($result)) {
             $tmp_username = "" . $row['empfullname'] . "";
         }
         if (!isset($tmp_username)) {
-            echo "Something is fishy here.\n";
+            echo "Something is fishy here1.\n";
             exit;
         }
     }
@@ -222,11 +223,12 @@ if ($request == 'GET') {
     if (!empty($display_name)) {
         $query = "select * from " . $db_prefix . "employees where empfullname = '" . $post_username . "' and displayname = '" . $display_name . "'";
         $result = mysqli_query($db,$query);
+        if($result)
         while ($row = mysqli_fetch_array($result)) {
             $tmp_display_name = "" . $row['displayname'] . "";
         }
         if (!isset($tmp_display_name)) {
-            echo "Something is fishy here.\n";
+            echo "Something is fishy here2.\n";
             exit;
         }
     }
@@ -234,11 +236,12 @@ if ($request == 'GET') {
     if (!empty($email_addy)) {
         $query = "select * from " . $db_prefix . "employees where empfullname = '" . $post_username . "' and email = '" . $email_addy . "'";
         $result = mysqli_query($db,$query);
+        if($result)
         while ($row = mysqli_fetch_array($result)) {
             $tmp_email_addy = "" . $row['email'] . "";
         }
         if (!isset($tmp_email_addy)) {
-            echo "Something is fishy here.\n";
+            echo "Something is fishy here3.\n";
             exit;
         }
     }
@@ -246,41 +249,43 @@ if ($request == 'GET') {
     if (!empty($office_name)) {
         $query = "select * from " . $db_prefix . "employees where empfullname = '" . $post_username . "' and office = '" . $office_name . "'";
         $result = mysqli_query($db,$query);
+        if($result)
         while ($row = mysqli_fetch_array($result)) {
             $tmp_office_name = "" . $row['office'] . "";
         }
         if (!isset($tmp_office_name)) {
-            echo "Something is fishy here.\n";
+            echo "Something is fishy here4.\n";
             exit;
         }
     }
 
     if (!empty($group_name)) {
-        $query = "select * from " . $db_prefix . "employees where empfullname = '" . $post_username . "' and groups = '" . $group_name . "'";
+        $query = "select * from " . $db_prefix . "employees where empfullname = '" . $post_username . "' and `groups` = '" . $group_name . "'";
         $result = mysqli_query($db,$query);
+        if($result)
         while ($row = mysqli_fetch_array($result)) {
             $tmp_group_name = "" . $row['groups'] . "";
         }
         if (!isset($tmp_group_name)) {
-            echo "Something is fishy here.\n";
+            echo "Something is fishy here5.\n";
             exit;
         }
     }
 
     if (($admin_perms != '0') && ($admin_perms != '1')) {
-        echo "Something is fishy here.\n";
+        echo "Something is fishy here6.\n";
         exit;
     }
     if (($reports_perms != '0') && ($reports_perms != '1')) {
-        echo "Something is fishy here.\n";
+        echo "Something is fishy here7.\n";
         exit;
     }
     if (($time_admin_perms != '0') && ($time_admin_perms != '1')) {
-        echo "Something is fishy here.\n";
+        echo "Something is fishy here9.\n";
         exit;
     }
     if ((isset($delete_data)) && ($delete_data != '1')) {
-        echo "Something is fishy here.\n";
+        echo "Something is fishy here8.\n";
         exit;
     }
 

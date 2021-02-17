@@ -35,7 +35,8 @@ if (!$result) {
     die();
 }
 
-while ($row = mysql_fetch_assoc($result)) {
+if($result)
+while ($row = mysqli_fetch_assoc($result)) {
     print $row['displayname'] . "\n";
 }
 ?>

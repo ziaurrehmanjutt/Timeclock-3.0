@@ -30,8 +30,8 @@ if (!$empfullname)
 if (!$empfullname)
     die(error_msg("Unrecognized employee.")); // no employee specified
 
-$h_empfullname = htmlentities($empfullname['empfullname']);
-$u_empfullname = rawurlencode($empfullname['empfullname']);
+$h_empfullname = htmlentities($empfullname);
+$u_empfullname = rawurlencode($empfullname);
 
 $h_name_header = $show_display_name == 'yes' ? htmlentities(get_employee_name($db,$db_prefix,$empfullname)) : $h_empfullname;
 

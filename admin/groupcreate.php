@@ -180,9 +180,10 @@ if ($request == 'GET') {
 
     // check for duplicate groupnames with matching officeids //
 
-    $query = "select * from " . $db_prefix . "groups where groupname = '" . $post_groupname . "' and officeid = '" . @$officeid . "'";
+    $query = "select * from `" . $db_prefix . "groups` where groupname = '" . $post_groupname . "' and officeid = '" . @$officeid . "'";
     $result = mysqli_query($db,$query);
 
+    if($result)
     while ($row = mysqli_fetch_array($result)) {
         $tmp_groupname = "" . $row['groupname'] . "";
     }
@@ -284,8 +285,11 @@ if ($request == 'GET') {
 
     } else {
 
-        $query = "insert into " . $db_prefix . "groups (groupname, officeid) values ('" . $post_groupname . "', '" . $officeid . "')";
+
+        $query = "insert into `" . $db_prefix . "groups` (`groupname`, `officeid`) values ('" . $post_groupname . "', '" . $officeid . "')";
+
         $result = mysqli_query($db,$query);
+
 
         echo "            <table align=center class=table_border width=60% border=0 cellpadding=0 cellspacing=3>\n";
         echo "              <tr><td class=table_rows width=20 align=center><img src='../images/icons/accept.png' /></td><td class=table_rows_green>

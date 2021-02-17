@@ -64,17 +64,17 @@ echo "        <tr><td class=left_rows height=18 align=left valign=middle><img sr
                 alt='Upgrade Database' />&nbsp;&nbsp;&nbsp;<a class=admin_headings href='dbupgrade.php'>Upgrade Database</a></td></tr>\n";
 echo "      </table></td>\n";
 
-$user_count = mysqli_query($db,"select empfullname from " . $db_prefix . "employees
+$user_count = mysqli_query($db, "select empfullname from " . $db_prefix . "employees
                            order by empfullname");
 @$user_count_rows = mysqli_num_rows($user_count);
 
-$admin_count = mysqli_query($db,"select empfullname from " . $db_prefix . "employees where admin = '1'");
+$admin_count = mysqli_query($db, "select empfullname from " . $db_prefix . "employees where admin = '1'");
 @$admin_count_rows = mysqli_num_rows($admin_count);
 
-$time_admin_count = mysqli_query($db,"select empfullname from " . $db_prefix . "employees where time_admin = '1'");
+$time_admin_count = mysqli_query($db, "select empfullname from " . $db_prefix . "employees where time_admin = '1'");
 @$time_admin_count_rows = mysqli_num_rows($time_admin_count);
 
-$reports_count = mysqli_query($db,"select empfullname from " . $db_prefix . "employees where reports = '1'");
+$reports_count = mysqli_query($db, "select empfullname from " . $db_prefix . "employees where reports = '1'");
 @$reports_count_rows = mysqli_num_rows($reports_count);
 
 echo "    <td align=left class=right_main scope=col>\n";
@@ -108,94 +108,96 @@ echo "              </tr>\n";
 
 $row_count = 0;
 
-$query = "select empfullname, displayname, email, groups, office, admin, reports, time_admin, disabled from " . $db_prefix . "employees
+$query = "select empfullname, displayname, email, `groups`, office, admin, reports, time_admin, disabled from " . $db_prefix . "employees
           order by empfullname";
-$result = mysqli_query($db,$query);
+$result = mysqli_query($db, $query);
+// $result = $result ? $result : [];
+if ($result) {
+    while ($row = mysqli_fetch_array($result)) {
 
-while ($row = mysqli_fetch_array($result)) {
+        $empfullname = stripslashes("" . $row['empfullname'] . "");
+        $displayname = stripslashes("" . $row['displayname'] . "");
 
-$empfullname = stripslashes("" . $row['empfullname'] . "");
-$displayname = stripslashes("" . $row['displayname'] . "");
+        $row_count++;
+        $row_color = ($row_count % 2) ? $color2 : $color1;
 
-$row_count++;
-$row_color = ($row_count % 2) ? $color2 : $color1;
-
-echo "              <tr class=table_border bgcolor='$row_color'><td nowrap class=table_rows width=3%>&nbsp;$row_count</td>\n";
-echo "                <td class=table_rows nowrap width=13%>&nbsp;<a title=\"Edit User: $empfullname\" class=footer_links 
+        echo "              <tr class=table_border bgcolor='$row_color'><td nowrap class=table_rows width=3%>&nbsp;$row_count</td>\n";
+        echo "                <td class=table_rows nowrap width=13%>&nbsp;<a title=\"Edit User: $empfullname\" class=footer_links 
                     href=\"useredit.php?username=$empfullname&officename=" . $row["office"] . "\">$empfullname</a></td>\n";
-echo "                <td class=table_rows nowrap width=18%>&nbsp;$displayname</td>\n";
-//echo "                <td class=table_rows nowrap width=23%>&nbsp;".$row["email"]."</td>\n";
-echo "
-<td class=table_rows nowrap width=10%>&nbsp;".$row['office']."</td>\n";
-echo "
-<td class=table_rows nowrap width=10%>&nbsp;".$row['groups']."</td>\n";
+        echo "                <td class=table_rows nowrap width=18%>&nbsp;$displayname</td>\n";
+        //echo "                <td class=table_rows nowrap width=23%>&nbsp;".$row["email"]."</td>\n";
+        echo "
+<td class=table_rows nowrap width=10%>&nbsp;" . $row['office'] . "</td>\n";
+        echo "
+<td class=table_rows nowrap width=10%>&nbsp;" . $row['groups'] . "</td>\n";
 
-if ("".$row["disabled"]."" == 1) {
-echo "
+        if ("" . $row["disabled"] . "" == 1) {
+            echo "
 <td class=table_rows width=3% align=center><img src='../images/icons/cross.png'/></td>\n";
-} else {
-$disabled = "";
-echo "
-<td class=table_rows width=3% align=center>".$disabled."</td>\n";
-}
-if ("".$row["admin"]."" == 1) {
-echo "
+        } else {
+            $disabled = "";
+            echo "
+<td class=table_rows width=3% align=center>" . $disabled . "</td>\n";
+        }
+        if ("" . $row["admin"] . "" == 1) {
+            echo "
 <td class=table_rows width=3% align=center><img src='../images/icons/accept.png'/></td>\n";
-} else {
-$admin = "";
-echo "
-<td class=table_rows width=3% align=center>".$admin."</td>\n";
-}
-if ("".$row["time_admin"]."" == 1) {
-echo "
+        } else {
+            $admin = "";
+            echo "
+<td class=table_rows width=3% align=center>" . $admin . "</td>\n";
+        }
+        if ("" . $row["time_admin"] . "" == 1) {
+            echo "
 <td class=table_rows width=3% align=center><img src='../images/icons/accept.png'/></td>\n";
-} else {
-$time_admin = "";
-echo "
-<td class=table_rows width=3% align=center>".$time_admin."</td>\n";
-}
-if ("".$row["reports"]."" == 1) {
-echo "
+        } else {
+            $time_admin = "";
+            echo "
+<td class=table_rows width=3% align=center>" . $time_admin . "</td>\n";
+        }
+        if ("" . $row["reports"] . "" == 1) {
+            echo "
 <td class=table_rows width=3% align=center><img src='../images/icons/accept.png'/></td>\n";
-} else {
-$reports = "";
-echo "
-<td class=table_rows width=3% align=center>".$reports."</td>\n";
-}
+        } else {
+            $reports = "";
+            echo "
+<td class=table_rows width=3% align=center>" . $reports . "</td>\n";
+        }
 
-if ((strpos($user_agent, "MSIE 6")) || (strpos($user_agent, "MSIE 5")) || (strpos($user_agent, "MSIE 4")) || (strpos($user_agent, "MSIE 3"))) {
+        if ((strpos($user_agent, "MSIE 6")) || (strpos($user_agent, "MSIE 5")) || (strpos($user_agent, "MSIE 4")) || (strpos($user_agent, "MSIE 3"))) {
 
-echo "
+            echo "
 <td class=table_rows width=3% align=center><a style='color:#27408b;text-decoration:underline;'
                                               title=\"Edit User: $empfullname\"
-    href=\"useredit.php?username=$empfullname&officename=".$row["office"]."\">Edit</a></td>\n";
-echo "
+    href=\"useredit.php?username=$empfullname&officename=" . $row["office"] . "\">Edit</a></td>\n";
+            echo "
 <td class=table_rows width=3% align=center><a style='color:#27408b;text-decoration:underline;'
                                               title=\"Change Password: $empfullname\"
-    href=\"chngpasswd.php?username=$empfullname&officename=".$row["office"]."\">Chg Pwd</a></td>\n";
-echo "
+    href=\"chngpasswd.php?username=$empfullname&officename=" . $row["office"] . "\">Chg Pwd</a></td>\n";
+            echo "
 <td class=table_rows width=3% align=center><a style='color:#27408b;text-decoration:underline;'
                                               title=\"Delete User: $empfullname\"
-    href=\"userdelete.php?username=$empfullname&officename=".$row["office"]."\">Delete</a></td></tr>\n";
+    href=\"userdelete.php?username=$empfullname&officename=" . $row["office"] . "\">Delete</a></td></tr>\n";
+        } else {
 
-} else {
-
-echo "
+            echo "
 <td class=table_rows width=3% align=center><a title=\"Edit User: $empfullname\"
-    href=\"useredit.php?username=$empfullname&officename=".$row["office"]."\">
+    href=\"useredit.php?username=$empfullname&officename=" . $row["office"] . "\">
     <img border=0 src='../images/icons/application_edit.png'/></a></td>\n";
-echo "
+            echo "
 <td class=table_rows width=3% align=center><a title=\"Change Password: $empfullname\"
-    href=\"chngpasswd.php?username=$empfullname&officename=".$row["office"]."\"><img border=0
+    href=\"chngpasswd.php?username=$empfullname&officename=" . $row["office"] . "\"><img border=0
                                                                                      src='../images/icons/lock_edit.png'/></a>
 </td>\n";
-echo "
+            echo "
 <td class=table_rows width=3% align=center><a title=\"Delete User: $empfullname\"
-    href=\"userdelete.php?username=$empfullname&officename=".$row["office"]."\">
+    href=\"userdelete.php?username=$empfullname&officename=" . $row["office"] . "\">
     <img border=0 src='../images/icons/delete.png'/></a></td></tr>\n";
-}
+        }
+    }
+} else {
+    echo "<tr><td colspan='8'>No record found</td></tr>";
 }
 echo "          </table></td></tr>\n";
 include '../footer.php';
 exit;
-?>

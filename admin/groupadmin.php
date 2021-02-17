@@ -80,45 +80,47 @@ echo "                <th class=table_heading nowrap width=3% align=center>Delet
 
 $row_count = 0;
 
-$query = "select * from " . $db_prefix . "groups, " . $db_prefix . "offices where " . $db_prefix . "groups.officeid = " . $db_prefix . "offices.officeid
+$query = "select * from `" . $db_prefix . "groups`, `" . $db_prefix . "offices` where " . $db_prefix . "groups.officeid = " . $db_prefix . "offices.officeid
           order by " . $db_prefix . "offices.officename, " . $db_prefix . "groups.groupname";
-$result = mysqli_query($db,$query);
+$result = mysqli_query($db, $query);
+if ($result) {
+    while ($row = mysqli_fetch_array($result)) {
 
-while ($row = mysqli_fetch_array($result)) {
+        $query2 = "select groups from " . $db_prefix . "employees where groups = '" . $row['groupname'] . "' and office = '" . $row['officename'] . "'";
+        $result2 = mysqli_query($db, $query2);
+        @$user_cnt = mysqli_num_rows($result2);
 
-    $query2 = "select groups from " . $db_prefix . "employees where groups = '" . $row['groupname'] . "' and office = '" . $row['officename'] . "'";
-    $result2 = mysqli_query($db,$query2);
-    @$user_cnt = mysqli_num_rows($result2);
+        $parent_office = "" . $row['officename'] . "";
 
-    $parent_office = "" . $row['officename'] . "";
+        $row_count++;
+        $row_color = ($row_count % 2) ? $color2 : $color1;
 
-    $row_count++;
-    $row_color = ($row_count % 2) ? $color2 : $color1;
-
-    echo "              <tr class=table_border bgcolor='$row_color'><td nowrap class=table_rows width=7%>&nbsp;$row_count</td>\n";
-    echo "                <td class=table_rows nowrap width=25%>&nbsp;<a class=footer_links title='Edit Group: " . $row["groupname"] . "'
+        echo "              <tr class=table_border bgcolor='$row_color'><td nowrap class=table_rows width=7%>&nbsp;$row_count</td>\n";
+        echo "                <td class=table_rows nowrap width=25%>&nbsp;<a class=footer_links title='Edit Group: " . $row["groupname"] . "'
                     href=\"groupedit.php?groupname=" . $row["groupname"] . "&officename=$parent_office\">" . $row["groupname"] . "</a></td>\n";
-    echo "                <td class=table_rows width=58% align=left>&nbsp;$parent_office</td>\n";
-    echo "                <td class=table_rows nowrap width=4% align=center>$user_cnt</td>\n";
+        echo "                <td class=table_rows width=58% align=left>&nbsp;$parent_office</td>\n";
+        echo "                <td class=table_rows nowrap width=4% align=center>$user_cnt</td>\n";
 
-    if ((strpos($user_agent, "MSIE 6")) || (strpos($user_agent, "MSIE 5")) || (strpos($user_agent, "MSIE 4")) || (strpos($user_agent, "MSIE 3"))) {
+        if ((strpos($user_agent, "MSIE 6")) || (strpos($user_agent, "MSIE 5")) || (strpos($user_agent, "MSIE 4")) || (strpos($user_agent, "MSIE 3"))) {
 
-        echo "                <td class=table_rows width=3% align=center><a style='color:#27408b;text-decoration:underline;'
+            echo "                <td class=table_rows width=3% align=center><a style='color:#27408b;text-decoration:underline;'
                     title=\"Edit Group: " . $row["groupname"] . "\" href=\"groupedit.php?groupname=" . $row["groupname"] . "&officename=$parent_office\" >
                     Edit</a></td>\n";
-        echo "                <td class=table_rows width=3% align=center><a style='color:#27408b;text-decoration:underline;'
+            echo "                <td class=table_rows width=3% align=center><a style='color:#27408b;text-decoration:underline;'
                     title=\"Delete Group: " . $row["groupname"] . "\" href=\"groupdelete.php?groupname=" . $row["groupname"] . "&officename=$parent_office\" >
                     Delete</a></td></tr>\n";
-    } else {
-        echo "                <td class=table_rows width=3% align=center><a href=\"groupedit.php?groupname=" . $row["groupname"] . "&officename=$parent_office\"
+        } else {
+            echo "                <td class=table_rows width=3% align=center><a href=\"groupedit.php?groupname=" . $row["groupname"] . "&officename=$parent_office\"
                     title=\"Edit Group: " . $row["groupname"] . "\">
                     <img border=0 src='../images/icons/application_edit.png' /></a></td>\n";
-        echo "                <td class=table_rows width=3% align=center><a href=\"groupdelete.php?groupname=" . $row["groupname"] . "&officename=$parent_office\"
+            echo "                <td class=table_rows width=3% align=center><a href=\"groupdelete.php?groupname=" . $row["groupname"] . "&officename=$parent_office\"
                     title=\"Delete Group: " . $row["groupname"] . "\">
                     <img border=0 src='../images/icons/delete.png' /></a></td></tr>\n";
+        }
     }
+} else {
+    echo "<tr><td colspan='8'>No record found</td></tr>";
 }
 echo "          </table></td></tr>\n";
 include '../footer.php';
 exit;
-?>

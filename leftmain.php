@@ -382,8 +382,10 @@ if ($request == 'POST') {
 
     // signin/signout data passed over from timeclock.php //
 
+
     $inout = $_POST['left_inout'];
-    $notes = preg_replace("[^[:alnum:] \,\.\?-]", "", strtolower($_POST['left_notes']));
+    // $notes = preg_replace("[^[:alnum:] \,\.\?-]", "", strtolower($_POST['left_notes']));
+    $notes = preg_replace("/[[:alnum:] \,\.\?-]/", "", strtolower($_POST['left_notes']));
 
     // begin post validation //
 

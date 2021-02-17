@@ -327,7 +327,7 @@ if ($request == 'GET') {
 
             for ($x = 0; $x < $how_many; $x++) {
                 $y = $x + 1;
-                $query3 = "insert into " . $db_prefix . "groups (groupname, officeid) values ('" . $input_group_name[$y] . "', '" . $tmp_officeid . "')";
+                $query3 = "insert into `" . $db_prefix . "groups` (groupname, officeid) values ('" . $input_group_name[$y] . "', '" . $tmp_officeid . "')";
                 $result3 = mysqli_query($db,$query3);
             }
 

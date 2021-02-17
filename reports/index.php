@@ -12,7 +12,8 @@ if ($use_reports_password == "yes") {
     if (!isset($_SESSION['valid_reports_user'])) {
 
         echo "<title>$title</title>\n";
-        include '../admin/header.php';
+        // include '../admin/header.php';
+        include 'header.php';
         include 'topmain.php';
 
         echo "<table width=100% border=0 cellpadding=7 cellspacing=1>\n";

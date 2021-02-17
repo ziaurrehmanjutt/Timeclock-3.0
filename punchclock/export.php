@@ -198,13 +198,13 @@ $group_name = isset($_POST['group_name']) ? $_POST['group_name'] : null;
 $office_name = isset($_POST['office_name']) ? $_POST['office_name'] : null;
 
 // Program options.
-$c_reg_ot = bool($_POST['c_reg_ot']);
-$c_inout = bool($_POST['c_inout']);
-$c_date = bool($_POST['c_date']);
-$c_employee = bool($_POST['c_employee']);
-$c_name = bool($_POST['c_name']);
-$c_group = bool($_POST['c_group']);
-$c_office = bool($_POST['c_office']);
+$c_reg_ot = @bool($_POST['c_reg_ot']);
+$c_inout = @bool($_POST['c_inout']);
+$c_date = @bool($_POST['c_date']);
+$c_employee = @bool($_POST['c_employee']);
+$c_name = @bool($_POST['c_name']);
+$c_group = @bool($_POST['c_group']);
+$c_office = @bool($_POST['c_office']);
 
 ////////////////////////////////////////
 $PAGE_TITLE = "Export - $title";

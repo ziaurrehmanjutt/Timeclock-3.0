@@ -251,7 +251,7 @@ function mtr_conditions ($icao,$curtime='',$sunrise='',$sunset='',$useJpgIcon=fa
    $numberOfSeconds=5;   
 
    // Suppress error reporting so Web site visitors are unaware if the feed fails
-   error_reporting(0);
+  //  error_reporting(0);
 
    // Extract resource path and domain from URL ready for fsockopen
    $FullUrl = $url;

@@ -17,6 +17,7 @@
         $result = mysqli_query($db,$query);
 
         $cnt=1;
+        if($result)
         while ($row=mysqli_fetch_array($result)) {
           if (isset($abc)) {
           echo "select.options[$cnt] = new Option(\"".$row['officename']."\");\n";
@@ -27,7 +28,7 @@
           }
           $cnt++;
         }
-        mysqli_free_result($result);
+        @mysqli_free_result($result);
         ?>
     }
 
@@ -46,12 +47,13 @@
         $query = "select * from ".$db_prefix."offices order by officename asc";
         $result = mysqli_query($db,$query);
 
+        if($result)
         while ($row=mysqli_fetch_array($result)) {
           $office_row = addslashes("".$row['officename']."");
           ?>
         if (offices_select.options[offices_select.selectedIndex].text == "<?php echo $office_row; ?>") {
             <?php
-                $query2 = "select * from ".$db_prefix."offices, ".$db_prefix."groups where ".$db_prefix."groups.officeid = ".$db_prefix."offices.officeid
+                $query2 = "select * from ".$db_prefix."offices, `".$db_prefix."groups` where ".$db_prefix."groups.officeid = ".$db_prefix."offices.officeid
                            and ".$db_prefix."offices.officename = '".$office_row."'
                            order by ".$db_prefix."groups.groupname asc";
                 $result2 = mysqli_query($db,$query2);
@@ -59,6 +61,7 @@
                 echo "groups_select.options[0].value = 'All';\n";
                 $cnt = 1;
 
+                if($result2)
                 while ($row2=mysqli_fetch_array($result2)) {
                   $groups = "".$row2['groupname']."";
                   echo "groups_select.options[$cnt] = new Option(\"$groups\");\n";
@@ -69,8 +72,8 @@
         }
         <?php
         }
-        mysqli_free_result($result);
-        mysqli_free_result($result2);
+        @mysqli_free_result($result);
+        @mysqli_free_result($result2);
         ?>
         if (users_select.options[users_select.selectedIndex].value != 'All') {
             users_select.length = 0;
@@ -109,23 +112,25 @@
         $query = "select * from ".$db_prefix."offices order by officename asc";
         $result = mysqli_query($db,$query);
 
+        if($result)
         while ($row=mysqli_fetch_array($result)) {
         $office_row = addslashes("".$row['officename']."");
         ?>
         if (offices_select.options[offices_select.selectedIndex].text == "<?php echo $office_row; ?>") {
             <?php
-            $query2 = "select * from ".$db_prefix."offices, ".$db_prefix."groups where ".$db_prefix."groups.officeid = ".$db_prefix."offices.officeid
+            $query2 = "select * from ".$db_prefix."offices, `".$db_prefix."groups` where ".$db_prefix."groups.officeid = ".$db_prefix."offices.officeid
                        and ".$db_prefix."offices.officename = '".$office_row."'
                        order by ".$db_prefix."groups.groupname asc";
             $result2 = mysqli_query($db,$query2);
 
+            if($result2)
             while ($row2=mysqli_fetch_array($result2)) {
             $groups = "".$row2['groupname']."";
             ?>
 
             if (groups_select.options[groups_select.selectedIndex].text == "<?php echo $groups; ?>") {
                 <?php
-                $query3 = "select * from ".$db_prefix."employees where office = '".$office_row."' and groups = '".$groups."'  and empfullname <> 'admin'
+                $query3 = "select * from ".$db_prefix."employees where office = '".$office_row."' and `groups` = '".$groups."'  and empfullname <> 'admin'
                            order by empfullname asc";
                 $result3 = mysqli_query($db,$query3);
 
@@ -147,9 +152,9 @@
         }
         <?php
         }// ends while $row for offices
-        mysqli_free_result($result);
-        mysqli_free_result($result2);
-        mysqli_free_result($result3);
+        @mysqli_free_result($result);
+        @mysqli_free_result($result2);
+        @mysqli_free_result($result3);
         ?>
         if (groups_select.options[groups_select.selectedIndex].value == 'All') {
             <?php

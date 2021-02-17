@@ -411,6 +411,7 @@ if ($request == 'GET') {
           order by modified_when asc";
     $result = mysqli_query($db,$query);
 
+    if($result)
     while ($row = mysqli_fetch_array($result)) {
 
         $modified_when[] = "" . $row["modified_when"] . "";

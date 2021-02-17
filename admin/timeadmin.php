@@ -87,7 +87,7 @@ $row_count = 0;
 $query = "select empfullname, displayname, email, groups, office, admin, reports, disabled from " . $db_prefix . "employees
           order by empfullname";
 $result = mysqli_query($db,$query);
-
+if ($result) {
 while ($row = mysqli_fetch_array($result)) {
 
     $empfullname = stripslashes("" . $row['empfullname'] . "");
@@ -133,7 +133,9 @@ while ($row = mysqli_fetch_array($result)) {
                     <img border=0 src='../images/icons/clock_delete.png' /></a></td></tr>\n";
     }
 }
+} else {
+    echo "<tr><td colspan='8'>No record found</td></tr>";
+}
 echo "          </table></td></tr>\n";
 include '../footer.php';
 exit;
-?>

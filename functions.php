@@ -270,7 +270,9 @@ function ip_range($network, $ip) {
         $maskocts = explode('.', $network);
         $ipocts = explode('.', $ip);
 
-        // perform a range match
+        if($ipocts[0] == '::1'){
+            return true;
+        } 
         for ($i = 0; $i < 4; $i++) {
             if (preg_match('/\|\\[([0-9]+)\-([0-9]+)\\]\|/', $maskocts[$i], $regs)) {
                 if (($ipocts[$i] > $regs[2])
