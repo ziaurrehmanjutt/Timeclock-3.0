@@ -84,7 +84,7 @@ echo "              </tr>\n";
 
 $row_count = 0;
 
-$query = "select empfullname, displayname, email, groups, office, admin, reports, disabled from " . $db_prefix . "employees
+$query = "select empfullname, displayname, email, `groups`, office, admin, reports, disabled from " . $db_prefix . "employees
           order by empfullname";
 $result = mysqli_query($db,$query);
 if ($result) {

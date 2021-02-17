@@ -84,7 +84,7 @@ $use_passwd = "yes";
 /* If you only want certain users to have the ability to view and run the reports,
    change $use_reports_password to "yes". Default is "no"; */
 
-$use_reports_password = "yes";
+$use_reports_password = "no";
 
 
 /* Enable the option to log the ip addresses of the connecting computers when users
@@ -150,7 +150,7 @@ $calendar_style = "amer";
                 5) g:iA
                 6) g:ia    */
 
-$timefmt = "H:i";
+$timefmt = "g:ia";
 
 
 /* Display only activity for the the current day instead of the last entry from each user.
@@ -243,7 +243,7 @@ $paginate = "yes";
 /* Choose whether to show the punch-in/out details for each punch for each user on the
    Hours Worked report or not. Default is "yes". */
 
-$show_details = "no";
+$show_details = "yes";
 
 
 /* Choose how to round the time worked within the Hours Worked report for each user. This
@@ -259,7 +259,7 @@ $show_details = "no";
                    4) Round to the nearest 20 minutes.
                    5) Round to the nearest 30 minutes.                                     */
 
-$round_time = "2";
+$round_time = "0";
 
 
 /* The two variables below, $report_start_time and $report_end_time, are designed to work with

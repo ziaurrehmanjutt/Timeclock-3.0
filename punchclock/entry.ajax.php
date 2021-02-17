@@ -61,7 +61,7 @@ if ($authorized_to_post_time && isset($_POST['inout'])) {
     // Validate and get inout display color.
     $query = "select color from " . $db_prefix . "punchlist where punchitems = '$q_inout'";
     $punchlist_result = mysqli_query($db,$query);
-    $inout_color = mysql_result($punchlist_result, 0, 0);
+    $inout_color = mysqli_fetch_assoc($punchlist_result);
     if (!$inout_color) {
         #print error_msg("In/Out Status is not in the database.");
         trigger_error('In/Out Status is not in the database.', E_USER_WARNING);

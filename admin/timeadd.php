@@ -543,7 +543,7 @@ if ($request == 'GET') {
             $post_date = "$month/$day/$year";
         }
 
-        $timestamp = strtotime($post_date . " " . $post_time) - $tzo;
+        $timestamp = strtotime($post_date . " " . $post_time) - @$tzo;
 
         // check for duplicate time for $post_username
 
@@ -690,7 +690,7 @@ if ($request == 'GET') {
 
         $post_username = stripslashes($post_username);
         $post_displayname = stripslashes($post_displayname);
-        $post_date = date($datefmt, $timestamp + $tzo);
+        $post_date = date($datefmt, $timestamp + @$tzo);
 
         echo "            <table align=center class=table_border width=60% border=0 cellpadding=0 cellspacing=3>\n";
         echo "              <tr>\n";

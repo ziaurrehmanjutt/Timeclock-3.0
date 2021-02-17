@@ -180,7 +180,7 @@ if ($request == 'GET') {
             $tmp_get_user = "" . $row['empfullname'] . "";
         }
         if (!isset($tmp_get_user)) {
-            echo "Something is fishy here.\n";
+            echo "Something is fishy here1.\n";
             exit;
         }
     }
@@ -192,7 +192,7 @@ if ($request == 'GET') {
             $tmp_username = "" . $row['empfullname'] . "";
         }
         if (!isset($tmp_username)) {
-            echo "Something is fishy here.\n";
+            echo "Something is fishy here2.\n";
             exit;
         }
     }
@@ -204,7 +204,7 @@ if ($request == 'GET') {
             $tmp_post_displayname = "" . $row['displayname'] . "";
         }
         if (!isset($tmp_post_displayname)) {
-            echo "Something is fishy here.\n";
+            echo "Something is fishy here3.\n";
             exit;
         }
     }
@@ -361,17 +361,17 @@ if ($request == 'GET') {
             // begin post validation //
 
             if ($_POST['tmp_var'] != '1') {
-                echo "Something is fishy here.\n";
+                echo "Something is fishy here4.\n";
                 exit;
             }
             $tmp2_calc = intval($calc);
             $tmp2_timestamp = intval($timestamp);
             if ((strlen($tmp2_calc) != "10") || (!is_integer($tmp2_calc))) {
-                echo "Something is fishy here.\n";
+                echo "Something is fishy here5.\n";
                 exit;
             }
             if ((strlen($tmp2_timestamp) != "10") || (!is_integer($tmp2_timestamp))) {
-                echo "Something is fishy here.\n";
+                echo "Something is fishy here6.\n";
                 exit;
             }
             if (!is_numeric($final_num_rows)) {
@@ -386,12 +386,12 @@ if ($request == 'GET') {
                 $tmp_username = stripslashes($tmp_username);
 
                 if ($final_username[$x] != $tmp_username) {
-                    echo "Something is fishy heree.\n";
+                    echo "Something is fishy heree7.\n";
                     exit;
                 }
                 $final_mysql_timestamp[$x] = intval($final_mysql_timestamp[$x]);
                 if ((strlen($final_mysql_timestamp[$x]) != "10") || (!is_integer($final_mysql_timestamp[$x]))) {
-                    echo "Something is fishy here.\n";
+                    echo "Something is fishy here8.\n";
                     exit;
                 }
 
@@ -403,20 +403,21 @@ if ($request == 'GET') {
                 }
                 mysqli_free_result($result_sel);
                 if (!isset($punchitems)) {
-                    echo "Something is fishy here.\n";
+                    echo "Something is fishy here9.\n";
                     exit;
                 }
 
-                $final_notes[$x] = preg_replace("[^[:alnum:] \,\.\?-]", "", $final_notes[$x]);
+                $final_notes[$x] = preg_replace("/[^[:alnum:] \,\.\?-]/", "", $final_notes[$x]);
                 $final_username[$x] = addslashes($final_username[$x]);
 
                 $query5 = "select * from " . $db_prefix . "info where (fullname = '" . $final_username[$x] . "') and (timestamp = '" . $final_mysql_timestamp[$x] . "') and
            (`inout` = '" . $final_inout[$x] . "')";
                 $result5 = mysqli_query($db,$query5);
-                @$tmp_num_rows = mysqli_num_rows($result5);
 
-                if ((isset($tmp_num_rows)) && (@$tmp_num_rows != '1')) {
-                    echo "Something is fishy here.\n";
+                $tmp_num_rows = mysqli_num_rows($result5);
+
+                if ((isset($tmp_num_rows)) && ($tmp_num_rows != '1')) {
+                    echo "Something is fishy here10.\n";
                     exit;
                 }
 
@@ -622,7 +623,7 @@ if ($request == 'GET') {
                             $post_date = "$month/$day/$year";
                         }
 
-                        $new_tstamp[$x] = strtotime($post_date . " " . $edit_time_textbox[$x]) - $tzo;
+                        $new_tstamp[$x] = strtotime($post_date . " " . $edit_time_textbox[$x]) - @$tzo;
 
                         if ($new_tstamp[$x] > $tmp_tstamp) {
                             $query2 = "update " . $db_prefix . "employees set tstamp = '" . $new_tstamp[$x] . "' where empfullname = '" . $final_username[$x] . "'";
@@ -799,7 +800,7 @@ if ($request == 'GET') {
             for ($x = 0; $x < $num_rows; $x++) {
 
                 $row_color = ($row_count % 2) ? $color1 : $color2;
-                $time[$x] = date("$timefmt", $mysql_timestamp[$x] + $tzo);
+                $time[$x] = date("$timefmt", $mysql_timestamp[$x] + @$tzo);
                 $username[$x] = stripslashes($username[$x]);
 
                 echo "              <tr class=display_row>\n";

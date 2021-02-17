@@ -25,11 +25,16 @@ class Timecard {
     var $overtime_hours; // sum of overtime hours
     var $total_hours; // total of regular hours and overtime hours
 
-    function Timecard($db,$db_prefix,$empfullname, $begin_local_timestamp, $end_local_timestamp) {
+    function  __construct($db,$db_prefix,$empfullname, $begin_local_timestamp, $end_local_timestamp){
         $this->empfullname = $empfullname;
         $this->begin_local_timestamp = $begin_local_timestamp;
         $this->end_local_timestamp = $end_local_timestamp;
     }
+    // function Timecard($db,$db_prefix,$empfullname, $begin_local_timestamp, $end_local_timestamp) {
+    //     $this->empfullname = $empfullname;
+    //     $this->begin_local_timestamp = $begin_local_timestamp;
+    //     $this->end_local_timestamp = $end_local_timestamp;
+    // }
 
     function tally($db,$db_prefix) {
         return $this->walk($db,$db_prefix);
@@ -146,7 +151,7 @@ class Timecard {
                 // Last record still has employee punched in.
                 $this->end_time = $this->end_local_timestamp > $local_timestamp ? $local_timestamp : $this->end_local_timestamp;
                 list ($this->hours, $this->overtime) = compute_work_hours($this->start_time, $this->end_time, $this->week_hours);
-                if ($do_today_hours)
+                if (isset($do_today_hours) && $do_today_hours)
                     $this->today_hours += compute_day_hours($today_date, $this->start_time, $this->end_time);
                 $this->week_hours += $this->hours;
                 $this->overtime_hours += $this->overtime;

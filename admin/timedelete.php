@@ -285,7 +285,7 @@ if ($request == 'GET') {
         echo "                <td class=table_rows width=20 align=center><img src='../images/icons/cancel.png' /></td><td class=table_rows_red>
                     A valid Date is required.</td></tr>\n";
         echo "            </table>\n";
-    } elseif (preg_match('/' . "^([0-9]{1,2})[-,/,.]([0-9]{1,2})[-,/,.](([0-9]{2})|([0-9]{4}))$" . '/i', $post_date, $date_regs)) {
+    } elseif (preg_match('/' . "^([0-9]{1,2})[-,\/,.]([0-9]{1,2})[-,\/,.](([0-9]{2})|([0-9]{4}))$" . '/i', $post_date, $date_regs)) {
         if ($calendar_style == "amer") {
             if (isset($date_regs)) {
                 $month = $date_regs[1];
@@ -438,7 +438,7 @@ if ($request == 'GET') {
                     exit;
                 }
 
-                $final_notes[$x] = preg_replace("[^[:alnum:] \,\.\?-]", "", $final_notes[$x]);
+                $final_notes[$x] = preg_replace("/[^[:alnum:] \,\.\?-]/", "", $final_notes[$x]);
                 $final_username[$x] = addslashes($final_username[$x]);
 
                 $query5 = "select * from " . $db_prefix . "info where (fullname = '" . $final_username[$x] . "') and (timestamp = '" . $final_mysql_timestamp[$x] . "') and
@@ -459,7 +459,7 @@ if ($request == 'GET') {
 
                     // begin post validation //
 
-                    $tmp_time[$x] = date("$timefmt", $final_mysql_timestamp[$x] + $tzo);
+                    $tmp_time[$x] = date("$timefmt", $final_mysql_timestamp[$x] + @$tzo);
                     if ($tmp_time[$x] != $final_time[$x]) {
                         echo "Something is fishy here.\n";
                         exit;
@@ -596,7 +596,7 @@ if ($request == 'GET') {
             for ($x = 0; $x < $num_rows; $x++) {
 
                 $row_color = ($row_count % 2) ? $color1 : $color2;
-                $time[$x] = date("$timefmt", $mysql_timestamp[$x] + $tzo);
+                $time[$x] = date("$timefmt", $mysql_timestamp[$x] + @$tzo);
                 $username[$x] = stripslashes($username[$x]);
 
                 echo "              <tr class=display_row>\n";
@@ -744,7 +744,7 @@ if ($request == 'GET') {
             for ($x = 0; $x < $num_rows; $x++) {
 
                 $row_color = ($row_count % 2) ? $color1 : $color2;
-                $time[$x] = date("$timefmt", $mysql_timestamp[$x] + $tzo);
+                $time[$x] = date("$timefmt", $mysql_timestamp[$x] + @$tzo);
                 $username[$x] = stripslashes($username[$x]);
 
                 echo "              <tr class=display_row>\n";
