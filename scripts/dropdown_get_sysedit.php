@@ -9,6 +9,7 @@
         <?php
 
         include '../config.inc.php';
+        include '../timezone.php';
 
         @$office_name = $display_office;
 

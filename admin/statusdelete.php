@@ -5,6 +5,7 @@ $self = $_SERVER['PHP_SELF'];
 $request = $_SERVER['REQUEST_METHOD'];
 
 include '../config.inc.php';
+include '../timezone.php';
 include 'header.php';
 include 'topmain.php';
 echo "<title>$title - Delete Status</title>\n";

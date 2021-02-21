@@ -60,12 +60,22 @@ if (($use_client_tz == "yes") && ($use_server_tz == "yes")) {
 }
 
 echo "<head>\n";
+
+
 if ($use_client_tz == "yes") {
     if (!isset($_COOKIE['tzoffset'])) {
         include 'tzoffset.php';
         echo "<meta http-equiv='refresh' content='0;URL=timeclock.php'>\n";
+    }else{
+        $tzo = $_COOKIE['tzoffset'];
+        settype($tzo, "integer");
+        $tzo = $tzo * 60;
     }
 }
+
+
+
+
 
 echo "<link rel='stylesheet' type='text/css' media='screen' href='css/default.css' />\n";
 echo "<link rel='stylesheet' type='text/css' media='print' href='css/print.css' />\n";

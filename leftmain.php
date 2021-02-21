@@ -1,6 +1,7 @@
 <?php
 
 include 'config.inc.php';
+include 'timezone.php';
 
 $self = $_SERVER['PHP_SELF'];
 $request = $_SERVER['REQUEST_METHOD'];

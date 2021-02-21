@@ -11,6 +11,7 @@ session_start();
 $_SESSION['application'] = $current_page; // security
 
 include 'config.inc.php';
+include 'timezone.php';
 include 'setup_timeclock.php'; // authorize and initialize
 
 $PAGE_TITLE = "Menu = $title";

@@ -4,6 +4,7 @@
  */
 
 require_once 'config.inc.php';
+include 'timezone.php';
 require_once 'lib.common.php';
 
 class Timecard {

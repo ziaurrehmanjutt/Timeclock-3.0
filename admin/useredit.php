@@ -5,6 +5,7 @@ $self = $_SERVER['PHP_SELF'];
 $request = $_SERVER['REQUEST_METHOD'];
 
 include '../config.inc.php';
+include '../timezone.php';
 if ($request !== 'POST') {
     include 'header_get.php';
     include 'topmain.php';

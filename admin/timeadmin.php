@@ -6,6 +6,7 @@ $request = $_SERVER['REQUEST_METHOD'];
 $user_agent = $_SERVER['HTTP_USER_AGENT'];
 
 include '../config.inc.php';
+include '../timezone.php';
 include 'header.php';
 include 'topmain.php';
 echo "<title>$title - Add/Edit/Delete Time</title>\n";

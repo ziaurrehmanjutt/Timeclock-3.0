@@ -41,6 +41,7 @@
 
 <?php
 require_once 'config.inc.php';
+include 'timezone.php';
 $SITE = array();  // required for non-Saratoga template use
 global $SITE;
 

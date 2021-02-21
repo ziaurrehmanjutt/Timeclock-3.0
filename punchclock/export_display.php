@@ -8,6 +8,7 @@ if (!isset($_SESSION['application'])) {
     exit;
 }
 require_once 'config.inc.php';
+require_once 'timezone.php';
 require_once 'class.Timecard.php';
 
 // Connect to db.

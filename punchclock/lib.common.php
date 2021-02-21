@@ -4,6 +4,7 @@
  */
 
 require_once 'config.inc.php';
+require_once 'timezone.php';
 
 ////////////////////////////////////////
 function make_id($empfullname) {

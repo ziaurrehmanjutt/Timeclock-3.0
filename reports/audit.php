@@ -7,6 +7,7 @@ $request = $_SERVER['REQUEST_METHOD'];
 $current_page = "audit.php";
 
 include '../config.inc.php';
+include '../timezone.php';
 
 if ($use_reports_password == "yes") {
 
@@ -363,12 +364,12 @@ if ($request == 'GET') {
 
     if (!empty($from_date)) {
         $from_date = "$from_month/$from_day/$from_year";
-        $from_timestamp = strtotime($from_date) - @$tzo;
+        $from_timestamp = strtotime($from_date) - $tzo;
         $from_date = $_POST['from_date'];
     }
     if (!empty($to_date)) {
         $to_date = "$to_month/$to_day/$to_year";
-        $to_timestamp = strtotime($to_date) + 86400 - @$tzo;
+        $to_timestamp = strtotime($to_date) + 86400 - $tzo;
         $to_date = $_POST['to_date'];
     }
 
@@ -381,7 +382,7 @@ if ($request == 'GET') {
     $rpt_year = gmdate('Y', $time);
     $rpt_stamp = mktime($rpt_hour, $rpt_min, $rpt_sec, $rpt_month, $rpt_day, $rpt_year);
 
-    $rpt_stamp = $rpt_stamp + @$tzo;
+    $rpt_stamp = $rpt_stamp + $tzo;
     $rpt_time = date($timefmt, $rpt_stamp);
     $rpt_date = date($datefmt, $rpt_stamp);
 
@@ -390,7 +391,7 @@ if ($request == 'GET') {
                 style='font-size:9px;color:#000000;'>Audit Log</td></tr>\n";
     echo "  <tr><td width=80%></td><td nowrap style='font-size:9px;color:#000000;'>Date Range: $from_date - $to_date</td></tr>\n";
     if (!empty($tmp_csv)) {
-      echo "<tr class=notprint><td width=80%></td><td nowrap style='font-size:9px;color:#000000;'><a style='color:#27408b;font-size:9px;text-decoration:underline;'href=get_csv.php?rpt=timerpt&csv=".$tmp_csv."&from=".$from_timestamp."&to=".$to_timestamp."&tzo=".isset($tzo).">Download CSV File</a></td></tr>\n";
+      echo "<tr class=notprint><td width=80%></td><td nowrap style='font-size:9px;color:#000000;'><a style='color:#27408b;font-size:9px;text-decoration:underline;'href=get_csv.php?rpt=timerpt&csv=".$tmp_csv."&from=".$from_timestamp."&to=".$to_timestamp."&tzo=".($tzo).">Download CSV File</a></td></tr>\n";
 
     }
     echo "</table>\n";
@@ -427,14 +428,14 @@ if ($request == 'GET') {
     for ($x = 0; $x < $cnt; $x++) {
 
         if (!empty($modified_when[$x])) {
-            $modified_when[$x] = $modified_when[$x] + @$tzo;
+            $modified_when[$x] = $modified_when[$x] + $tzo;
             $modified_when_time = date($timefmt, $modified_when[$x]);
             $modified_when_date = date($datefmt, $modified_when[$x]);
         } else {
             exit;
         }
         if (!empty($modified_from[$x])) {
-            $modified_from[$x] = $modified_from[$x] + @$tzo;
+            $modified_from[$x] = $modified_from[$x] + $tzo;
             $modified_from_time = date($timefmt, $modified_from[$x]);
             $modified_from_date = date($datefmt, $modified_from[$x]);
         } else {
@@ -442,7 +443,7 @@ if ($request == 'GET') {
             $modified_from_date = "" . $row["modified_from"] . "";
         }
         if (!empty($modified_to[$x])) {
-            $modified_to[$x] = $modified_to[$x] + @$tzo;
+            $modified_to[$x] = $modified_to[$x] + $tzo;
             $modified_to_time = date($timefmt, $modified_to[$x]);
             $modified_to_date = date($datefmt, $modified_to[$x]);
         } else {

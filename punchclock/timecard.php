@@ -6,6 +6,7 @@
 $current_page = "timecard.php";
 
 require_once 'config.inc.php';
+require_once 'timezone.php';
 require_once 'lib.common.php';
 require_once 'lib.timecard.php';
 turn_off_magic_quotes();

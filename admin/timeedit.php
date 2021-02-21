@@ -2,6 +2,7 @@
 session_start();
 
 include '../config.inc.php';
+include '../timezone.php';
 include 'header_date.php';
 include 'topmain.php';
 echo "<title>$title - Edit Time</title>\n";
@@ -432,8 +433,8 @@ if ($request == 'GET') {
                         $post_date = "$month/$day/$year";
                     }
 
-                    $tmp_timestamp = strtotime($post_date) - @$tzo;
-                    $tmp_calc = $timestamp + 86400 - @$tzo;
+                    $tmp_timestamp = strtotime($post_date) - $tzo;
+                    $tmp_calc = $timestamp + 86400 - $tzo;
 
                     if (($tmp_timestamp != $timestamp) || ($tmp_calc != $calc)) {
                         echo "Something is fishy here.\n";
@@ -623,7 +624,7 @@ if ($request == 'GET') {
                             $post_date = "$month/$day/$year";
                         }
 
-                        $new_tstamp[$x] = strtotime($post_date . " " . $edit_time_textbox[$x]) - @$tzo;
+                        $new_tstamp[$x] = strtotime($post_date . " " . $edit_time_textbox[$x]) - $tzo;
 
                         if ($new_tstamp[$x] > $tmp_tstamp) {
                             $query2 = "update " . $db_prefix . "employees set tstamp = '" . $new_tstamp[$x] . "' where empfullname = '" . $final_username[$x] . "'";
@@ -694,8 +695,8 @@ if ($request == 'GET') {
             }
 
             $row_count = '0';
-            $timestamp = strtotime($post_date) - @$tzo;
-            $calc = $timestamp + 86400 - @$tzo;
+            $timestamp = strtotime($post_date) - $tzo;
+            $calc = $timestamp + 86400 - $tzo;
             $post_username = stripslashes($post_username);
             $post_displayname = stripslashes($post_displayname);
             $post_username = addslashes($post_username);

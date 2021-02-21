@@ -10,6 +10,7 @@ if (!isset($_SESSION['application']))
     die("Invalid invocation.");
 
 require_once 'config.inc.php';
+require_once 'timezone.php';
 require_once 'lib.common.php';
 require_once 'lib.timecard.php';
 require_once "$TIMECLOCK_PATH/functions.php";

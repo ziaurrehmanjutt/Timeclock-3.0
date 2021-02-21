@@ -2,6 +2,7 @@
 session_start();
 
 include '../config.inc.php';
+include '../timezone.php';
 include 'header_date.php';
 include 'topmain.php';
 echo "<title>$title - Delete Time</title>\n";
@@ -429,6 +430,8 @@ if ($request == 'GET') {
                 $query_sel = "select * from " . $db_prefix . "punchlist where punchitems = '" . $final_inout[$x] . "'";
                 $result_sel = mysqli_query($db,$query_sel);
 
+    
+
                 while ($row = mysqli_fetch_array($result_sel)) {
                     $punchitems = "" . $row['punchitems'] . "";
                 }
@@ -559,6 +562,9 @@ if ($request == 'GET') {
           order by timestamp asc";
             $result = mysqli_query($db,$query);
 
+            
+
+
             $username = array();
             $inout = array();
             $notes = array();
@@ -579,7 +585,7 @@ if ($request == 'GET') {
             echo "            <table align=center class=table_border width=60% border=0 cellpadding=0 cellspacing=3>\n";
             echo "              <tr>\n";
             echo "                <td class=table_rows width=20 align=center><img src='../images/icons/cancel.png' /></td><td class=table_rows_red>
-                    Please choose a time or times to delete.</td></tr>\n";
+                    Please choose a time or times to delete1.</td></tr>\n";
             echo "            </table>\n";
             echo "            <br />\n";
             echo "            <form name='form' action='$self' method='post'>\n";
@@ -719,7 +725,7 @@ if ($request == 'GET') {
         echo "            <table align=center class=table_border width=60% border=0 cellpadding=0 cellspacing=3>\n";
         echo "              <tr>\n";
         echo "                <td class=table_rows width=20 align=center><img src='../images/icons/time.png' /></td><td class=table_rows style='color:#3366CC;'>
-                    Please choose a time or times to delete.</td></tr>\n";
+                    Please choose a time or times to delete2.</td></tr>\n";
         echo "            </table>\n";
         echo "            <br />\n";
         echo "            <table align=center class=table_border width=60% border=0 cellpadding=3 cellspacing=0>\n";

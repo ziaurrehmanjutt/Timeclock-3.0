@@ -2,6 +2,7 @@
 session_start();
 
 include '../config.inc.php';
+include '../timezone.php';
 include 'header_date.php';
 include 'topmain.php';
 echo "<title>$title - Add Time</title>\n";

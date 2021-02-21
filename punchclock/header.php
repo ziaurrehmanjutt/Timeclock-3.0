@@ -4,6 +4,7 @@
  */
 
 require_once 'config.inc.php';
+require_once 'timezone.php';
 
 // Arguments
 global $PAGE_TITLE, $PAGE_META, $PAGE_STYLE, $PAGE_SCRIPT, $PAGE_BODY_ID, $PAGE_CONTENT_HEADER;
@@ -43,8 +44,19 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"; // puts IE6 in quirks mode
     </style>
     <?php if (strlen($PAGE_STYLE) > 0)
         echo "$PAGE_STYLE\n"; ?>
-    <script type="text/javascript" src="scripts/jquery-1.4.2.min.js"></script>
-    <script type="text/javascript" src="scripts/resize_window.js"></script>
+
+<!-- <script
+  src="https://code.jquery.com/jquery-1.5.2.min.js"
+  integrity="sha256-jwoZ7oxgazWhCQSVHgon2hiW6v4zxuiMt7y+RV8Foko="
+  crossorigin="anonymous"></script> -->
+    <!-- <script type="text/javascript" src="scripts/jquery-1.4.2.min.js"></script> -->
+
+    <script
+  src="https://code.jquery.com/jquery-1.4.4.min.js"
+  integrity="sha256-UXNk8tRRYvtQN0N7W2y5U9ANmys7ebqH2f5X6m7mBww="
+  crossorigin="anonymous"></script>
+    <!-- <script type="text/javascript" src="scripts/jquery-2.2.4.js"></script> -->
+    <script type="text/javascript" src="scripts/resize_window.js"></script> 
     <?php if (strlen($PAGE_SCRIPT) > 0)
         echo "$PAGE_SCRIPT\n"; ?>
 </head>

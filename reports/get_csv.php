@@ -1,6 +1,7 @@
 <?php
 
 include '../config.inc.php';
+include '../timezone.php';
 include '../functions.php';
 
 @$db = mysqli_connect($db_hostname, $db_username, $db_password);
