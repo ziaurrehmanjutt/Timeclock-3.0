@@ -63,6 +63,8 @@ echo "        <tr><td class=left_rows height=18 align=left valign=middle><img sr
                 &nbsp;&nbsp;<a class=admin_headings href='sysedit.php'>Edit System Settings</a></td></tr>\n";
 echo "        <tr><td class=left_rows height=18 align=left valign=middle><img src='../images/icons/database_go.png'
                 alt='Upgrade Database' />&nbsp;&nbsp;&nbsp;<a class=admin_headings href='dbupgrade.php'>Upgrade Database</a></td></tr>\n";
+echo "        <tr><td class=left_rows height=18 align=left valign=middle><img src='../images/icons/database_go.png'
+                alt='Upgrade TimeZone' />&nbsp;&nbsp;&nbsp;<a class=admin_headings href='timechange.php'>Upgrade TimeZone</a></td></tr>\n";
 echo "      </table></td>\n";
 
 $user_count = mysqli_query($db, "select empfullname from " . $db_prefix . "employees

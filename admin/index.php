@@ -63,6 +63,8 @@ echo "        <tr><td class=left_rows height=18 align=left valign=middle><img sr
                 &nbsp;&nbsp;<a class=admin_headings href='sysedit.php'>Edit System Settings</a></td></tr>\n";
 echo "        <tr><td class=left_rows height=18 align=left valign=middle><img src='../images/icons/database_go.png'
                 alt='Upgrade Database' />&nbsp;&nbsp;&nbsp;<a class=admin_headings href='dbupgrade.php'>Upgrade Database</a></td></tr>\n";
+echo "        <tr><td class=left_rows height=18 align=left valign=middle><img src='../images/icons/database_go.png'
+                alt='Upgrade TimeZone' />&nbsp;&nbsp;&nbsp;<a class=admin_headings href='timechange.php'>Upgrade TimeZone</a></td></tr>\n";
 echo "      </table></td>\n";
 echo "    <td align=left class=right_main scope=col>\n";
 echo "      <table width=100% height=100% border=0 cellpadding=10 cellspacing=1>\n";
