@@ -127,7 +127,7 @@ class Timecard {
             // Is employee punched in?
             if ($this->in_or_out == 1) {
                 list ($this->hours, $this->overtime) = compute_work_hours($this->start_time, $this->end_time, $this->week_hours);
-                if ($do_today_hours)
+                if (isset($do_today_hours) && $do_today_hours)
                     $this->today_hours += compute_day_hours($today_date, $this->start_time, $this->end_time);
                 $this->week_hours += $this->hours;
                 $this->overtime_hours += $this->overtime;
