@@ -1,0 +1,2 @@
+Please Use Only sql\Current new Updated\timeclock.sql Database, Its Updated Database..
+Default Admin Name is admin and password is 123456
