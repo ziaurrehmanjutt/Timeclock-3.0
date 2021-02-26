@@ -313,9 +313,18 @@ if ($request == 'POST') {
         exit;
     } else {
 
+        if($time_to_change > 0){
+            $query = "UPDATE " . $db_prefix . "`info` set `timestamp`= `timestamp` + " . ($time_to_change * 3600) . " WHERE `timestamp` > " . $timeStart . " and `timestamp` < " . $endStart;
+            $result = mysqli_query($db, $query);
+        }else if($time_to_change < 0){
+            $time_to_change = $time_to_change * (-1);
+            $query = "UPDATE " . $db_prefix . "`info` set `timestamp`= `timestamp` - " . ($time_to_change * 3600) . " WHERE `timestamp` > " . $timeStart . " and `timestamp` < " . $endStart;
+            $result = mysqli_query($db, $query);
+        }else{
+            $result = 0;
+        }
 
-        $query = "UPDATE " . $db_prefix . "`info` set `timestamp`= `timestamp` + " . ($time_to_change * 3600) . ",`change1` = ". ($time_to_change * 3600)  ." WHERE `timestamp` > " . $timeStart . " and `timestamp` < " . $endStart;
-        $result = mysqli_query($db, $query);
+        
 
 
         echo "            <table align=center class=table_border width=60% border=0 cellpadding=0 cellspacing=3>\n";
