@@ -316,10 +316,22 @@ if ($request == 'POST') {
         if($time_to_change > 0){
             $query = "UPDATE " . $db_prefix . "`info` set `timestamp`= `timestamp` + " . ($time_to_change * 3600) . " WHERE `timestamp` > " . $timeStart . " and `timestamp` < " . $endStart;
             $result = mysqli_query($db, $query);
+            if($result){
+                echo "Your Query [".$query."] executed and Effected ".mysqli_affected_rows($db). " Rows";
+            }else{
+                echo "Your Query [".$query."] Does Not Effect any Row<br/>";
+                echo "<bt>Error:</bt> ". mysqli_error($db);
+            }
         }else if($time_to_change < 0){
             $time_to_change = $time_to_change * (-1);
             $query = "UPDATE " . $db_prefix . "`info` set `timestamp`= `timestamp` - " . ($time_to_change * 3600) . " WHERE `timestamp` > " . $timeStart . " and `timestamp` < " . $endStart;
             $result = mysqli_query($db, $query);
+            if($result){
+                echo "Your Query [".$query."] executed and Effected ".mysqli_affected_rows($db). " Rows";
+            }else{
+                echo "Your Query [".$query."] Does Not Effect any Row<br/>";
+                echo "<b>Error:</b> ". mysqli_error($db);
+            }
         }else{
             $result = 0;
         }
