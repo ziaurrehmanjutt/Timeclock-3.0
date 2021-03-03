@@ -602,21 +602,22 @@ if ($request == 'GET') {
             for ($x = 0; $x < $num_rows; $x++) {
 
                 $row_color = ($row_count % 2) ? $color1 : $color2;
-                $time[$x] = date("$timefmt", $mysql_timestamp[$x] + @$tzo);
+                // $time[$x] = date("$timefmt", $mysql_timestamp[$x] + @$tzo);
+                $time1 = date("$timefmt", $mysql_timestamp[$x] + @$tzo);
                 $username[$x] = stripslashes($username[$x]);
 
                 echo "              <tr class=display_row>\n";
                 echo "                <td nowrap width=1% style='padding-right:5px;padding-left:0px;' align=center><input type='checkbox' name='delete_time_checkbox[$x]'
                       value='1'></td>\n";
                 echo "                <td nowrap align=left style='width:7%;padding-left:5px;background-color:$row_color;color:" . $row["color"] . "'>$inout[$x]</td>\n";
-                echo "                <td nowrap align=right style='padding-left:20px;' width=4% bgcolor='$row_color'>$time[$x]</td>\n";
+                echo "                <td nowrap align=right style='padding-left:20px;' width=4% bgcolor='$row_color'>$time1</td>\n";
                 echo "                <td style='padding-left:25px;' bgcolor='$row_color'>$notes[$x]</td>\n";
                 echo "              </tr>\n";
                 echo "              <input type='hidden' name='final_username[$x]' value=\"$username[$x]\">\n";
                 echo "              <input type='hidden' name='final_inout[$x]' value=\"$inout[$x]\">\n";
                 echo "              <input type='hidden' name='final_notes[$x]' value=\"$notes[$x]\">\n";
                 echo "              <input type='hidden' name='final_mysql_timestamp[$x]' value=\"$mysql_timestamp[$x]\">\n";
-                echo "              <input type='hidden' name='final_time[$x]' value=\"$time[$x]\">\n";
+                echo "              <input type='hidden' name='final_time[$x]' value=\"$time1\">\n";
                 $row_count++;
             }
             echo "              <tr><td height=15></td></tr>\n";
@@ -750,21 +751,22 @@ if ($request == 'GET') {
             for ($x = 0; $x < $num_rows; $x++) {
 
                 $row_color = ($row_count % 2) ? $color1 : $color2;
-                $time[$x] = date("$timefmt", $mysql_timestamp[$x] + @$tzo);
+                // $time[$x] = date("$timefmt", $mysql_timestamp[$x] + @$tzo);
+                $time1 = date("$timefmt", $mysql_timestamp[$x] + @$tzo);
                 $username[$x] = stripslashes($username[$x]);
 
                 echo "              <tr class=display_row>\n";
                 echo "                <td nowrap width=1% style='padding-right:5px;padding-left:0px;' align=center><input type='checkbox' name='delete_time_checkbox[$x]'
                       value='1'></td>\n";
                 echo "                <td nowrap align=left style='width:7%;padding-left:5px;background-color:$row_color;color:" . $row["color"] . "'>$inout[$x]</td>\n";
-                echo "                <td nowrap align=right style='padding-left:20px;' width=4% bgcolor='$row_color'>$time[$x]</td>\n";
+                echo "                <td nowrap align=right style='padding-left:20px;' width=4% bgcolor='$row_color'>$time1</td>\n";
                 echo "                <td style='padding-left:25px;' bgcolor='$row_color'>$notes[$x]</td>\n";
                 echo "              </tr>\n";
                 echo "              <input type='hidden' name='final_username[$x]' value=\"$username[$x]\">\n";
                 echo "              <input type='hidden' name='final_inout[$x]' value=\"$inout[$x]\">\n";
                 echo "              <input type='hidden' name='final_notes[$x]' value=\"$notes[$x]\">\n";
                 echo "              <input type='hidden' name='final_mysql_timestamp[$x]' value=\"$mysql_timestamp[$x]\">\n";
-                echo "              <input type='hidden' name='final_time[$x]' value=\"$time[$x]\">\n";
+                echo "              <input type='hidden' name='final_time[$x]' value=\"$time1\">\n";
                 $row_count++;
             }
             echo "              <tr><td height=15></td></tr>\n";
