@@ -193,6 +193,7 @@ if ($request == 'GET') {
     $post_username = addslashes($post_username);
     $post_displayname = addslashes($post_displayname);
 
+    
     // begin post validation //
 
     if (!empty($get_user)) {
@@ -270,11 +271,11 @@ if ($request == 'GET') {
         exit;
     }
 
-    $post_notes = preg_match('/' . "[^[:alnum:] \,\.\?-]" . '/', "", $post_notes);
-    if ($post_notes == "") {
-        $post_notes = " ";
-    }
-
+    // $post_notes = preg_match('/' . "[^[:alnum:] \,\.\?-]" . '/', "", $post_notes);
+    // if ($post_notes == "") {
+    //     $post_notes = " ";
+    // }
+    // var_dump($post_notes);die;
     // end post validation //
 
     //if ($get_user != $post_username) {exit;}
@@ -285,6 +286,8 @@ if ($request == 'GET') {
     $get_user = stripslashes($get_user);
     $post_username = stripslashes($post_username);
     $post_displayname = stripslashes($post_displayname);
+    $post_notes = stripslashes($post_notes);
+
 
     echo "<table width=100% height=89% border=0 cellpadding=0 cellspacing=1>\n";
     echo "  <tr valign=top>\n";
